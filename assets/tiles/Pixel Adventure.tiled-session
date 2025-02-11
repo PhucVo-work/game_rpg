@@ -33,7 +33,7 @@
             "scaleInEditor": 1
         },
         "FG_Cellar.tsx": {
-            "scaleInDock": 2,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1.5
         },
         "dugenon tiles.tsx": {
@@ -64,10 +64,10 @@
         },
         "test-game.tmx": {
             "scale": 2,
-            "selectedLayer": 3,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 219.25,
-                "y": 123.25
+                "x": 301,
+                "y": 231.75
             }
         },
         "waiting-room.tmx": {
