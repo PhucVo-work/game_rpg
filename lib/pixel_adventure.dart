@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -11,15 +10,15 @@ class PixelAdventure extends FlameGame{
   Color backgroundColor() => const Color(0x000000);
   late final CameraComponent cam;
 
-  final world = Home();
+  final homeWorld = Home();
 
   @override
   FutureOr<void> onLoad() {
 
-    cam = CameraComponent.withFixedResolution(world: world, width: 640, height: 360);
+    cam = CameraComponent.withFixedResolution(world: homeWorld, width: 640, height: 360);
     cam.viewfinder.anchor = Anchor.topLeft;
 
-    addAll([cam, world]);
+    addAll([cam, homeWorld]);
     return super.onLoad();
   }
 
