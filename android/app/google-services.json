@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "842840139285",
+    "project_id": "game-rpg-3b5d0",
+    "storage_bucket": "game-rpg-3b5d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842840139285:android:36aa07106662868654501c",
+        "android_client_info": {
+          "package_name": "com.example.game_rpg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842840139285-rvgfmq9hgbesdsdr2f2e9is33ie0serk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.game_rpg",
+            "certificate_hash": "8cb4e51feb1e606806cf4762f63ad404201c9cdb"
+          }
+        },
+        {
+          "client_id": "842840139285-fs62897vbr6amjdst7kna84b7cm74c7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLY1PaA2eEzZb47oUc2rnBYCTOR4yJbT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842840139285-fs62897vbr6amjdst7kna84b7cm74c7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

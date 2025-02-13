@@ -1,10 +1,16 @@
 pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
-        file("local.properties").withInputStream { properties.load(it) }
-        def flutterSdkPath = properties.getProperty("flutter.sdk")
-        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-        return flutterSdkPath
+        def propertiesFile = new File("local.properties")
+        // Thêm kiểm tra file tồn tại
+        if (propertiesFile.exists()) {
+            propertiesFile.withInputStream { properties.load(it) }
+            def flutterSdkPath = properties.getProperty("flutter.sdk")
+            assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+            return flutterSdkPath
+        } else {
+            throw new GradleException("local.properties not found. Please ensure Flutter is properly set up.")
+        }
     }()
 
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
@@ -18,8 +24,18 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "8.1.0" apply false
-    id "org.jetbrains.kotlin.android" version "1.8.22" apply false
 }
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        // Thêm jcenter() nếu cần (không khuyến khích nhưng đôi khi cần thiết)
+    }
+}
+
+// Thêm rootProject name
+rootProject.name = "game_rpg"
 
 include ":app"
