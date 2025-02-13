@@ -196,10 +196,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_ios
-      sha256: "83f015169102df1ab2905cf8abd8934e28f87db9ace7a5fa676998842fed228a"
+      sha256: "8468465516a6fdc283ffbbb06ec03a860ee34e9ff84b0454074978705b42379b"
       url: "https://pub.dev"
     source: hosted
-    version: "5.7.8"
+    version: "5.8.0"
   google_sign_in_platform_interface:
     dependency: transitive
     description:
@@ -312,22 +312,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.2"
-  play_games_services:
-    dependency: "direct main"
-    description:
-      name: play_games_services
-      sha256: "7e9ef0567cc2bc63dfbdf44b4b3d693be45df453b540026c589896d514d05342"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
-  play_games_services_platform_interface:
-    dependency: transitive
-    description:
-      name: play_games_services_platform_interface
-      sha256: a104770ac90f8f1d173c6bf126776648ae5d39a6ea135c6be5ee57df7578f6b6
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:

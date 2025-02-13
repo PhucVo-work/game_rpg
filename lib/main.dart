@@ -1,11 +1,22 @@
-import 'package:flutter/widgets.dart';
-import 'package:flame/game.dart';
-import 'package:game_rpg/pixel_adventure.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:game_rpg/Game/main_menu.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
 
-  final game = PixelAdventure();
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  runApp(GameWidget(game: game));
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Game RPG',
+      home: const MainMenu(),
+    );
+  }
 }

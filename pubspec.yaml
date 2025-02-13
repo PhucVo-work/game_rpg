@@ -40,7 +40,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   flame: 1.21.0
   flame_tiled: 1.21.0
-  play_games_services: ^2.0.0
 
 dev_dependencies:
   flutter_test:
