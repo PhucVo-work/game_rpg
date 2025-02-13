@@ -1,0 +1,2 @@
+C:/Web/game_rpg/android/app/.cxx/Debug/1w5b3q5v/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Web/game_rpg/android/app/.cxx/Debug/1w5b3q5v/armeabi-v7a/CMakeFiles/rebuild_cache.dir

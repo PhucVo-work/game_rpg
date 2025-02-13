@@ -1,53 +1,62 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'com.google.gms.google-services'
-    // Flutter plugin phải đặt cuối cùng
-    id 'dev.flutter.flutter-gradle-plugin'
+    id "com.android.application"
+    id 'com.google.gms.google-services'  // FlutterFire Configuration
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"  // Flutter Gradle Plugin
 }
 
 android {
     namespace = "com.example.game_rpg"
-    compileSdk = 34
-    ndkVersion = "25.2.9519653"
+    ndkVersion = "27.0.12077973"
+    compileSdkVersion = 34
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
-        applicationId "com.example.game_rpg"
-        minSdkVersion 23
-        targetSdkVersion 34
-        versionCode flutter.versionCode
-        versionName flutter.versionName
+        applicationId = "com.example.game_rpg"
+        minSdk = 23
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            shrinkResources false
+            signingConfig = signingConfigs.debug  // Thêm cấu hình ký nếu cần cho release
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
     lintOptions {
-        disable 'InvalidPackage'
-        checkReleaseBuilds false
+        // Tùy chọn lint nếu bạn cần
+        abortOnError false
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        // Định nghĩa các flavors nếu cần thiết
+        // sampleFlavor {
+        //     dimension "default"
+        // }
     }
 }
 
 flutter {
-    source = "../.."
+    source = "../.."  // Đường dẫn tới source của Flutter
 }
 
 dependencies {
-    implementation platform('com.google.firebase:firebase-bom:32.7.1')
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-auth:21.0.3'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'com.google.android.gms:play-services-auth:20.0.1'
+
 }

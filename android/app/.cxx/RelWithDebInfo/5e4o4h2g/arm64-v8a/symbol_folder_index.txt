@@ -1,0 +1,1 @@
+C:\Web\game_rpg\build\app\intermediates\cxx\RelWithDebInfo\5e4o4h2g\obj\arm64-v8a

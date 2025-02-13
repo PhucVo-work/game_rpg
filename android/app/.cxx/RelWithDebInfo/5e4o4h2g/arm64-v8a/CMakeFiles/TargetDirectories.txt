@@ -1,0 +1,2 @@
+C:/Web/game_rpg/android/app/.cxx/RelWithDebInfo/5e4o4h2g/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Web/game_rpg/android/app/.cxx/RelWithDebInfo/5e4o4h2g/arm64-v8a/CMakeFiles/rebuild_cache.dir

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flame/game.dart';
+import 'package:game_rpg/pixel_adventure.dart';
 import 'package:game_rpg/Game/main_menu.dart';
+import 'package:game_rpg/Game/settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +16,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final game = PixelAdventure();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Game RPG',
-      home: const MainMenu(),
+      home: GameWidget(
+        game: game,
+        overlayBuilderMap: {
+          MainMenu.id: (context, _) => MainMenu(onSettingsPressed: game.showSettings),
+          Settings.id: (context, _) => Settings(musicValueNotifier: game.musicValueNotifier, onBackPressed: game.hideSettings),
+        },
+        initialActiveOverlays: const [MainMenu.id],
+      ),
     );
   }
 }

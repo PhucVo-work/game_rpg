@@ -2,7 +2,6 @@ pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
         def propertiesFile = new File("local.properties")
-        // Thêm kiểm tra file tồn tại
         if (propertiesFile.exists()) {
             propertiesFile.withInputStream { properties.load(it) }
             def flutterSdkPath = properties.getProperty("flutter.sdk")
@@ -23,7 +22,10 @@ pluginManagement {
 }
 
 plugins {
-    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"  // Cập nhật nếu cần phiên bản phù hợ
+    id("com.android.application") version "8.8.0" apply false
+    id("com.android.library") version "8.8.0" apply false
+    id("org.jetbrains.kotlin.android") version "2.1.10" apply false
 }
 
 dependencyResolutionManagement {
@@ -31,11 +33,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // Thêm jcenter() nếu cần (không khuyến khích nhưng đôi khi cần thiết)
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
+
     }
 }
 
-// Thêm rootProject name
 rootProject.name = "game_rpg"
-
-include ":app"
+include ':app'

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:game_rpg/Game/google_sign_in_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:game_rpg/Game/google_sign_in_service.dart';
 
 class MainMenu extends StatelessWidget {
-  const MainMenu({super.key, this.onSettingsPressed});
   static const id = 'MainMenu';
   final VoidCallback? onSettingsPressed;
+
+  const MainMenu({super.key, this.onSettingsPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,11 @@ class MainMenu extends StatelessWidget {
                     padding: EdgeInsets.only(top: 15),
                     child: Text(
                       'Adventure',
-                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
