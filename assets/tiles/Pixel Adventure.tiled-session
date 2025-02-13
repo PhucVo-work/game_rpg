@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "waiting_room.tmx",
+    "activeFile": "test-game.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -20,13 +20,21 @@
             "scaleInDock": 2,
             "scaleInEditor": 1
         },
+        "Dungeon_Tileset_17px.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
         "Dungeon_Tileset_18PX.tsx": {
-            "scaleInDock": 3,
+            "scaleInDock": 2,
             "scaleInEditor": 1
         },
         "Dungeon_Tileset_32PX.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "FG_Cellar.tsx": {
             "scaleInDock": 1.5,
-            "scaleInEditor": 5.5
+            "scaleInEditor": 1.5
         },
         "dugenon tiles.tsx": {
             "scaleInDock": 2,
@@ -54,6 +62,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 2
         },
+        "test-game.tmx": {
+            "scale": 8,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 86.125,
+                "y": 254.6875
+            }
+        },
         "waiting-room.tmx": {
             "scale": 1.5,
             "selectedLayer": 0,
@@ -63,41 +79,39 @@
             }
         },
         "waiting_room.tmx": {
-            "scale": 0.5,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 156,
-                "y": 589
+                "x": 239,
+                "y": 315.5
             }
         }
     },
-    "last.imagePath": "E:/projects/game_rpg/assets/images/Environment/Dungeon Prison/Assets",
-    "map.height": 40,
+    "frame.defaultDuration": 100,
+    "last.imagePath": "E:/projects/game_rpg/assets/images/Environment/Dungeon Prison/Assets/Tilesets",
+    "map.height": 23,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 40,
     "openFiles": [
-        "dugeon tiles ver-1.tsx",
-        "Dungeon_Tileset_32PX.tsx",
-        "Dungeon_Tileset_18PX.tsx",
-        "Dungeon_Tileset_16px.tsx",
-        "waiting_room.tmx"
+        "test-game.tmx",
+        "FG_Cellar.tsx"
     ],
     "project": "Pixel Adventure.tiled-project",
     "recentFiles": [
-        "dugeon tiles ver-1.tsx",
-        "Dungeon_Tileset_32PX.tsx",
-        "Dungeon_Tileset_18PX.tsx",
+        "FG_Cellar.tsx",
+        "test-game.tmx",
         "Dungeon_Tileset_16px.tsx",
+        "dugeon tiles ver-1.tsx",
         "waiting_room.tmx",
+        "Dungeon_Tileset_17px.tsx",
+        "Dungeon_Tileset_18PX.tsx",
+        "Dungeon_Tileset_32PX.tsx",
         "Dungeon_Tileset.tsx",
         "dugeon tiles ver-3.tsx",
         "Dungeon_Tileset_16PX.tsx",
-        "dugenon tiles.tsx",
-        "dugeon tiles ver-2.tsx",
-        "waiting-room.tmx",
-        "dugeon tiles.tsx"
+        "dugenon tiles.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
