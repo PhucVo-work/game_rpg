@@ -58,6 +58,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
+    - assets/tiles/
+    - assets/images/Environment/Dungeon_Prison/Assets/Tilesets/
+    - assets/images/Environment/Dungeon_Prison/Assets/Characters/Knight_10/
     - assets/images/Menu/dungeonbg4.png
     - assets/images/Menu/google_icon.png
   # The following line ensures that the Material Icons font is
@@ -66,11 +69,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/tiles/
-    - assets/images/Environment/Dungeon_Prison/Assets/Tilesets/
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
