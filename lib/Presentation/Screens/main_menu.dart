@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:game_rpg/Game/google_sign_in_service.dart';
+import 'package:game_rpg/Core/Service/google_sign_in_service.dart';
+import 'package:game_rpg/Features/lobby/presentation/lobbyScreen.dart';
 
 class MainMenu extends StatelessWidget {
   static const id = 'MainMenu';
@@ -69,7 +70,11 @@ class MainMenu extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const LobbyScreen()),
                       );
                     } else {
-                      print("Đăng nhập thất bại");
+                      // print("Đăng nhập thất bại");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LobbyScreen()),
+                      );
                     }
                   },
                   style: OutlinedButton.styleFrom(
@@ -102,30 +107,3 @@ class MainMenu extends StatelessWidget {
   }
 }
 
-// Màn hình sảnh chờ
-class LobbyScreen extends StatelessWidget {
-  const LobbyScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Sảnh Chờ")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Chào mừng đến với sảnh chờ!"),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await GoogleSignInService.signOut();
-                Navigator.pop(context);
-              },
-              child: const Text("Đăng xuất"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
