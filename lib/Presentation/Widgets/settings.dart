@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
 
 class Settings extends StatelessWidget {
   static const id = 'Settings';

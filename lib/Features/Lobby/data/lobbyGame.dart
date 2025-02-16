@@ -1,9 +1,27 @@
 import 'dart:async';
 
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:game_rpg/Game/Camera.dart';
+
 
 class LobbyGame extends FlameGame {
+  late final GameCamera cam;
+
+  final world = Level();
+
+  @override
+  FutureOr<void> onLoad() async {
+    // Sử dụng camera từ file camera.dart
+    cam = GameCamera(world: world);
+    addAll([world, cam]);
+
+    return super.onLoad();
+  }
+}
+
+class Level extends World {
   late TiledComponent lobbyScreen;
 
   @override
@@ -13,6 +31,4 @@ class LobbyGame extends FlameGame {
 
     return super.onLoad();
   }
-
-  // thêm nhân vật vào phòng chờ sau này
 }
