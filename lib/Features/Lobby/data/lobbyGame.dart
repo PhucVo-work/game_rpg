@@ -1,35 +1,22 @@
+// lobby_game.dart
 import 'dart:async';
-
 import 'package:flame/camera.dart';
-import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flame_tiled/flame_tiled.dart';
+import 'package:game_rpg/Features/lobby/data/lobbyRoom.dart';
 import 'package:game_rpg/Game/Camera.dart';
 
 class LobbyGame extends FlameGame {
-
   late final CameraComponent cam;
-
-  final world = Level();
+  final world = LobbyRoom();
 
   @override
-  FutureOr<void> onLoad() async {
+  Future<void> onLoad() async {
+    await images.load(
+      'Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Down.png',
+    );
+
     cam = GameCamera(world: world);
     addAll([world, cam]);
-
-    return super.onLoad();
-  }
-}
-
-class Level extends World {
-  late TiledComponent lobbyScreen;
-
-  @override
-  FutureOr<void> onLoad() async {
-    lobbyScreen = await TiledComponent.load('test-game.tmx', Vector2.all(16));
-
-    add(lobbyScreen);
-
     return super.onLoad();
   }
 }

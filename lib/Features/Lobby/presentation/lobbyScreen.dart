@@ -1,13 +1,12 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:game_rpg/Features/lobby/data/lobbyGame.dart';
+import 'package:game_rpg/Features/Lobby/data/lobbyGame.dart';
 
 class LobbyScreen extends StatelessWidget {
   const LobbyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final game = LobbyGame();
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +20,7 @@ class LobbyScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: GameWidget(game: game),
+      body: GameWidget(game: LobbyGame()),
     );
   }
 }
