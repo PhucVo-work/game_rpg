@@ -70,7 +70,7 @@ class MainMenu extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => const LobbyScreen()),
                       );
                     } else {
-                      // print("Đăng nhập thất bại");
+                      print("Đăng nhập thất bại");
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const LobbyScreen()),
