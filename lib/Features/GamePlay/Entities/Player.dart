@@ -26,7 +26,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame>  {
 
   void _loadAnimations() {
     idleAnimation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Down.png'),
+      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_DownF0.png'),
         SpriteAnimationData.sequenced(
           amount: amount,
           stepTime: stepTime,
