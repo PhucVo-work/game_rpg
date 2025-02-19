@@ -11,9 +11,10 @@ class LobbyGame extends FlameGame {
 
   @override
   Future<void> onLoad() async {
-    await images.load(
+    await images.loadAll([
       'Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Down.png',
-    );
+      'Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Right.png',
+    ]);
 
     cam = GameCamera(world: world);
     addAll([world, cam]);
