@@ -12,9 +12,17 @@ class LobbyGame extends FlameGame {
   @override
   Future<void> onLoad() async {
     await images.loadAll([
-      'Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Down.png',
-      'Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Right.png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Idle (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Run (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Idle (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Run (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/Idle (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/Run (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/Idle (32x32).png',
+      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/Run (32x32).png',
     ]);
+
+    await images.loadAllImages();
 
     cam = GameCamera(world: world);
     addAll([world, cam]);

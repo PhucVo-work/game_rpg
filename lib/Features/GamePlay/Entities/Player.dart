@@ -26,7 +26,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame>  {
 
   void _loadAnimations() {
     idleAnimation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_DownF0.png'),
+      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Idle (32x32).png'),
         SpriteAnimationData.sequenced(
           amount: amount,
           stepTime: stepTime,
@@ -34,11 +34,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame>  {
         ),
     );
     runningAnimation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Knight_10/Knight_10_Walk_Right.png'),
+      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Run (32x32).png'),
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
-        textureSize: Vector2.all(32),
+        textureSize: Vector2.all(16),
       ),
     );
     // List of all animations
