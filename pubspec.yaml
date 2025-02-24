@@ -60,7 +60,11 @@ flutter:
   assets:
     - assets/tiles/
     - assets/images/Environment/Dungeon_Prison/Assets/Tilesets/
-    - assets/images/Environment/Dungeon_Prison/Assets/Characters/Knight_10/
+    - assets/images/Environment/Characters/Mask_Dude/
+    - assets/images/Environment/Characters/Ninja_Frog/
+    - assets/images/Environment/Characters/Pink_Man/
+    - assets/images/Environment/Characters/Virtual_Guy/
+    - assets/images/Environment/Characters/Desappearing_(96x96).png
     - assets/images/Menu/dungeonbg4.png
     - assets/images/Menu/google_icon.png
   # The following line ensures that the Material Icons font is
