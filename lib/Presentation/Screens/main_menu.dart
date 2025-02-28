@@ -56,29 +56,27 @@ class MainMenu extends StatelessWidget {
               ),
               const Spacer(),
 
-              // Nút Sign Up with Google
               SizedBox(
                 width: 300,
                 child: OutlinedButton(
                   onPressed: () async {
-                    User? user = await GoogleSignInService.signInWithGoogle();
+                    User? user = await GoogleSignInService.signInWithGoogle(forceSignIn: true);
                     if (user != null) {
                       print("Đăng nhập thành công: ${user.displayName}");
-                      // Điều hướng đến sảnh chờ
-                      Navigator.push(
+                      // Điều hướng đến sảnh chờ và thay thế màn hình hiện tại
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const LobbyScreen()),
                       );
                     } else {
                       print("Đăng nhập thất bại");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LobbyScreen()),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Đăng nhập thất bại")),
                       );
                     }
                   },
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white.withOpacity(0.9),
+                    backgroundColor: Colors.white.withAlpha((0.9 * 255).toInt()),
                     side: const BorderSide(color: Colors.white),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
@@ -98,6 +96,7 @@ class MainMenu extends StatelessWidget {
                   ),
                 ),
               ),
+
               const SizedBox(height: 50),
             ],
           ),
