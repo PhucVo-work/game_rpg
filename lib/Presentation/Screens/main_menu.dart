@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_rpg/Core/Service/google_sign_in_service.dart';
+
 import '../../Features/Lobby/presentation/characterSelection.dart';
 
 class MainMenu extends StatelessWidget {
@@ -69,15 +70,10 @@ class MainMenu extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LobbyScreen()),
+                            builder: (context) => CharacterSelectionWidget()),
                       );
                     } else {
                       print("Đăng nhập thất bại");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LobbyScreen()),
-                      );
                     }
                   },
                   style: OutlinedButton.styleFrom(
@@ -109,6 +105,3 @@ class MainMenu extends StatelessWidget {
     );
   }
 }
-                        MaterialPageRoute(
-                            builder: (context) => CharacterSelectionWidget()),
-                    backgroundColor: Colors.white.withAlpha((0.9 * 255).toInt()),
