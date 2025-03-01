@@ -1,31 +1,40 @@
-// lobby_game.dart
 import 'dart:async';
-import 'package:flame/camera.dart';
+
+import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:game_rpg/Features/GamePlay/Entities/Player.dart';
 import 'package:game_rpg/Features/lobby/data/lobbyRoom.dart';
 import 'package:game_rpg/Game/Camera.dart';
 
-class LobbyGame extends FlameGame {
+import '../../../Presentation/Widgets/HUD/Hud.dart';
+
+class LobbyGame extends FlameGame
+    with HasKeyboardHandlerComponents, DragCallbacks {
+  final String nameCharacter;
+  LobbyGame({required this.nameCharacter});
   late final CameraComponent cam;
-  final world = LobbyRoom();
+  late HUD hud;
+  Player? player;
 
   @override
   Future<void> onLoad() async {
-    await images.loadAll([
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/Run (32x32).png',
-    ]);
+    // Tạo player
+    player = Player(character: nameCharacter);
 
-    await images.loadAllImages();
+    if (player != null) {
+      hud = HUD(player: player!);
+      add(hud);
+    }
 
+    // Tạo thế giới và camera
+    final world = LobbyRoom(
+        mapName: 'test-game', player: player!, nameCharacter: nameCharacter);
     cam = GameCamera(world: world);
+    cam.priority = 10;
+
     addAll([world, cam]);
+
     return super.onLoad();
   }
 }

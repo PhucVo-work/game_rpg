@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:game_rpg/Core/Service/google_sign_in_service.dart';
-import 'package:game_rpg/Features/lobby/presentation/lobbyScreen.dart';
+
+import '../../Features/Lobby/presentation/characterSelection.dart';
 
 class MainMenu extends StatelessWidget {
   static const id = 'MainMenu';
@@ -19,7 +20,7 @@ class MainMenu extends StatelessWidget {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Menu/dungeonbg4.png'),
+                image: AssetImage('assets/images/Menu/dugeonbg4.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -67,14 +68,11 @@ class MainMenu extends StatelessWidget {
                       // Điều hướng đến sảnh chờ
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LobbyScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => CharacterSelectionWidget()),
                       );
                     } else {
                       print("Đăng nhập thất bại");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LobbyScreen()),
-                      );
                     }
                   },
                   style: OutlinedButton.styleFrom(
@@ -106,4 +104,3 @@ class MainMenu extends StatelessWidget {
     );
   }
 }
-

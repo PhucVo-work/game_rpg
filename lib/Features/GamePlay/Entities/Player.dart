@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:game_rpg/Features/Lobby/data/lobbyGame.dart';
@@ -8,11 +9,23 @@ enum PlayerState {
   running,
 }
 
-class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame>  {
+enum PlayerDirection { left, right, none }
+
+class Player extends SpriteAnimationGroupComponent
+    with HasGameRef<LobbyGame>, KeyboardHandler {
+  String character;
+  Player({position, required this.character}) : super(position: position);
+
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
-  final double stepTime = 0.5;
-  final int amount = 4;
+  late final pi = 3.14;
+  final double stepTime = 0.05;
+
+  PlayerDirection playerDirection = PlayerDirection.none;
+  double moveSpeed = 100;
+  Vector2 velocity = Vector2.zero();
+  bool isFacingRight = true;
+
   @override
   FutureOr<void> onLoad() {
     try {
@@ -24,23 +37,21 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame>  {
     return super.onLoad();
   }
 
+  @override
+  void update(double dt) {
+    // _updatePlayerMovement(dt);
+    if (velocity.length > 0) {
+      position += velocity * dt;
+    } else {
+      current = PlayerState.idle;
+    }
+    super.update(dt);
+  }
+
   void _loadAnimations() {
-    idleAnimation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Idle (32x32).png'),
-        SpriteAnimationData.sequenced(
-          amount: amount,
-          stepTime: stepTime,
-          textureSize: Vector2.all(32),
-        ),
-    );
-    runningAnimation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Run (32x32).png'),
-      SpriteAnimationData.sequenced(
-        amount: amount,
-        stepTime: stepTime,
-        textureSize: Vector2.all(16),
-      ),
-    );
+    idleAnimation = _spriteAnimation('Idle', 11);
+    runningAnimation = _spriteAnimation('Run', 12);
+
     // List of all animations
     animations = {
       PlayerState.idle: idleAnimation,
@@ -49,6 +60,43 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame>  {
 
     //set current animation
     current = PlayerState.idle;
+  }
 
+  SpriteAnimation _spriteAnimation(String state, int amount) {
+    return SpriteAnimation.fromFrameData(
+      game.images.fromCache(
+          'Environment/Dungeon_Prison/Assets/Characters/Main Characters/$character/$state (32x32).png'),
+      SpriteAnimationData.sequenced(
+        amount: amount,
+        stepTime: stepTime,
+        textureSize: Vector2.all(32),
+      ),
+    );
+  }
+
+  void updateDirection(double angle) {
+    // Determine left/right facing based on angle
+    if (angle > -pi / 2 && angle < pi / 2) {
+      // Right half of the circle (facing right)
+      if (!isFacingRight) {
+        flipHorizontallyAroundCenter();
+        isFacingRight = true;
+      }
+    } else {
+      // Left half of the circle (facing left)
+      if (isFacingRight) {
+        flipHorizontallyAroundCenter();
+        isFacingRight = false;
+      }
+    }
+
+    // Update velocity according to angle
+    velocity = Vector2(
+      cos(angle) * moveSpeed,
+      sin(angle) * moveSpeed,
+    );
+
+    // Set running animation
+    current = PlayerState.running;
   }
 }

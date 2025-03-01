@@ -1,24 +1,39 @@
 import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:game_rpg/Features/GamePlay/Entities/Player.dart';
 
 class LobbyRoom extends World {
+  final Player player;
+  final String mapName;
+  final String nameCharacter;
+
+  LobbyRoom(
+      {required this.mapName,
+      required this.player,
+      required this.nameCharacter});
   late TiledComponent lobbyScreen;
 
   @override
   FutureOr<void> onLoad() async {
-    lobbyScreen = await TiledComponent.load('test-game.tmx', Vector2.all(16));
+    lobbyScreen = await TiledComponent.load('$mapName.tmx', Vector2.all(16));
     add(lobbyScreen);
 
-    // Lấy kích thước bản đồ
-    final mapSize = lobbyScreen.size;
+    final spawnPointsLayer =
+        lobbyScreen.tileMap.getLayer<ObjectGroup>('spawnPoints');
 
-    final player = Player()
-      ..position = mapSize / 2 // Đặt Player vào chính giữa
-      ..anchor = Anchor.center; // Đặt điểm neo vào giữa Player
+    for (final spawnPoint in spawnPointsLayer!.objects) {
+      switch (spawnPoint.class_) {
+        case 'Player':
+          player.character = nameCharacter;
+          player.position = Vector2(spawnPoint.x, spawnPoint.y);
+          add(player);
+          break;
+        default:
+      }
+    }
 
-    add(player);
     return super.onLoad();
   }
 }
