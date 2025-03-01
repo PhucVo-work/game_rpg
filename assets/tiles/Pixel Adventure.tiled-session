@@ -63,11 +63,11 @@
             "scaleInEditor": 2
         },
         "test-game.tmx": {
-            "scale": 8,
-            "selectedLayer": 0,
+            "scale": 2,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 86.125,
-                "y": 254.6875
+                "x": 291,
+                "y": 216.25
             }
         },
         "waiting-room.tmx": {

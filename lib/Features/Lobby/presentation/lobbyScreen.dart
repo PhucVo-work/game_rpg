@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:game_rpg/Features/Lobby/data/lobbyGame.dart';
 
 class LobbyScreen extends StatelessWidget {
-  const LobbyScreen({super.key});
+  final String nameCharacter;
+  const LobbyScreen({super.key, required this.nameCharacter});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sảnh Chờ"),
@@ -20,7 +20,7 @@ class LobbyScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: GameWidget(game: LobbyGame()),
+      body: GameWidget(game: LobbyGame(nameCharacter: nameCharacter)),
     );
   }
 }

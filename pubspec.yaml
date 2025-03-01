@@ -60,11 +60,13 @@ flutter:
   assets:
     - assets/tiles/
     - assets/images/Environment/Dungeon_Prison/Assets/Tilesets/
+    - assets/images/HUD/
     - assets/images/Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/
     - assets/images/Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/
     - assets/images/Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/
     - assets/images/Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/
-    - assets/images/Menu/dungeonbg4.png
+    - assets/images/Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask/
+    - assets/images/Menu/dugeonbg4.png
     - assets/images/Menu/google_icon.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

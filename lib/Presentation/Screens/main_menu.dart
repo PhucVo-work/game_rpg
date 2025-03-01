@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:game_rpg/Core/Service/google_sign_in_service.dart';
-import 'package:game_rpg/Features/lobby/presentation/lobbyScreen.dart';
+import '../../Features/Lobby/presentation/characterSelection.dart';
 
 class MainMenu extends StatelessWidget {
   static const id = 'MainMenu';
@@ -19,7 +19,7 @@ class MainMenu extends StatelessWidget {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Menu/dungeonbg4.png'),
+                image: AssetImage('assets/images/Menu/dugeonbg4.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -56,27 +56,32 @@ class MainMenu extends StatelessWidget {
               ),
               const Spacer(),
 
+              // Nút Sign Up with Google
               SizedBox(
                 width: 300,
                 child: OutlinedButton(
                   onPressed: () async {
-                    User? user = await GoogleSignInService.signInWithGoogle(forceSignIn: true);
+                    User? user = await GoogleSignInService.signInWithGoogle(
+                        forceSignIn: true);
                     if (user != null) {
                       print("Đăng nhập thành công: ${user.displayName}");
-                      // Điều hướng đến sảnh chờ và thay thế màn hình hiện tại
-                      Navigator.pushReplacement(
+                      // Điều hướng đến sảnh chờ
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const LobbyScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const LobbyScreen()),
                       );
                     } else {
                       print("Đăng nhập thất bại");
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Đăng nhập thất bại")),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LobbyScreen()),
                       );
                     }
                   },
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white.withAlpha((0.9 * 255).toInt()),
+                    backgroundColor: Colors.white.withOpacity(0.9),
                     side: const BorderSide(color: Colors.white),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
@@ -96,7 +101,6 @@ class MainMenu extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 50),
             ],
           ),
@@ -105,4 +109,6 @@ class MainMenu extends StatelessWidget {
     );
   }
 }
-
+                        MaterialPageRoute(
+                            builder: (context) => CharacterSelectionWidget()),
+                    backgroundColor: Colors.white.withAlpha((0.9 * 255).toInt()),
