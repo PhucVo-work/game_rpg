@@ -19,7 +19,7 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   late final pi = 3.14;
-  final double stepTime = 0.05;
+  final double stepTime = 0.050;
 
   PlayerDirection playerDirection = PlayerDirection.none;
   double moveSpeed = 100;
@@ -49,8 +49,8 @@ class Player extends SpriteAnimationGroupComponent
   }
 
   void _loadAnimations() {
-    idleAnimation = _spriteAnimation('Idle', 11);
-    runningAnimation = _spriteAnimation('Run', 12);
+    idleAnimation = _spriteAnimation('Idle', 8);
+    runningAnimation = _spriteAnimation('Run', 8);
 
     // List of all animations
     animations = {
@@ -64,12 +64,11 @@ class Player extends SpriteAnimationGroupComponent
 
   SpriteAnimation _spriteAnimation(String state, int amount) {
     return SpriteAnimation.fromFrameData(
-      game.images.fromCache(
-          'Environment/Dungeon_Prison/Assets/Characters/Main Characters/$character/$state (32x32).png'),
+      game.images.fromCache('characters/$character/$state (40x40).png'),
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
-        textureSize: Vector2.all(32),
+        textureSize: Vector2.all(40),
       ),
     );
   }

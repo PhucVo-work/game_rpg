@@ -20,7 +20,7 @@ class MainMenu extends StatelessWidget {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/Menu/dugeonbg4.png'),
+                image: AssetImage('assets/backGround_IMG/dugeonbg4.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -85,7 +85,7 @@ class MainMenu extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/images/Menu/google_icon.png',
+                        'assets/backGround_IMG/google_icon.png',
                         height: 24,
                       ),
                       const SizedBox(width: 10),

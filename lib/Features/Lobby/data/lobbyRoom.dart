@@ -17,7 +17,8 @@ class LobbyRoom extends World {
 
   @override
   FutureOr<void> onLoad() async {
-    lobbyScreen = await TiledComponent.load('$mapName.tmx', Vector2.all(16));
+    lobbyScreen =
+        await TiledComponent.load('tiles/$mapName.tmx', Vector2.all(16));
     add(lobbyScreen);
 
     final spawnPointsLayer =

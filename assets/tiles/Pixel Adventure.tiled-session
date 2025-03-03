@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "test-game.tmx",
+    "activeFile": "E:/assets/tiles/test-game.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -31,6 +31,17 @@
         "Dungeon_Tileset_32PX.tsx": {
             "scaleInDock": 2,
             "scaleInEditor": 1
+        },
+        "E:/assets/tiles/FG_Cellar.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/assets/tiles/test-game.tmx": {
+            "scale": 2.020234375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 319.76487876561356,
+                "y": 183.88955489384742
+            }
         },
         "FG_Cellar.tsx": {
             "scaleInDock": 1.5,
@@ -64,10 +75,10 @@
         },
         "test-game.tmx": {
             "scale": 2,
-            "selectedLayer": 4,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 291,
-                "y": 216.25
+                "x": 320,
+                "y": 184
             }
         },
         "waiting-room.tmx": {
@@ -88,7 +99,7 @@
         }
     },
     "frame.defaultDuration": 100,
-    "last.imagePath": "E:/projects/game_rpg/assets/images/Environment/Dungeon Prison/Assets/Tilesets",
+    "last.imagePath": "E:/projects/game_rpg/assets/Tilesets",
     "map.height": 23,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -96,12 +107,14 @@
     "map.width": 40,
     "openFiles": [
         "test-game.tmx",
-        "FG_Cellar.tsx"
+        "FG_Cellar.tsx",
+        "E:/assets/tiles/test-game.tmx"
     ],
     "project": "Pixel Adventure.tiled-project",
     "recentFiles": [
-        "FG_Cellar.tsx",
         "test-game.tmx",
+        "FG_Cellar.tsx",
+        "E:/assets/tiles/test-game.tmx",
         "Dungeon_Tileset_16px.tsx",
         "dugeon tiles ver-1.tsx",
         "waiting_room.tmx",
@@ -110,8 +123,7 @@
         "Dungeon_Tileset_32PX.tsx",
         "Dungeon_Tileset.tsx",
         "dugeon tiles ver-3.tsx",
-        "Dungeon_Tileset_16PX.tsx",
-        "dugenon tiles.tsx"
+        "Dungeon_Tileset_16PX.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

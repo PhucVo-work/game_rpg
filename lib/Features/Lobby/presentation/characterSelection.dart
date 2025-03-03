@@ -4,6 +4,8 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:game_rpg/Features/Lobby/presentation/lobbyScreen.dart';
 
+enum CharacterState { idle }
+
 class CharacterSelectionWidget extends StatefulWidget {
   @override
   _CharacterSelectionWidgetState createState() =>
@@ -12,16 +14,11 @@ class CharacterSelectionWidget extends StatefulWidget {
 
 class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
   int _selectedIndex = 0;
-  late SpriteAnimation _spriteAnimation;
-  final double stepTime = 0.05;
-  final int totalFrames = 11;
+  late SpriteAnimationGroupComponent<CharacterState> _spriteAnimation;
+  final double stepTime = 0.050;
+  final int totalFrames = 8;
 
-  final List<String> _characters = [
-    'Mask Dude',
-    'Ninja Frog',
-    'Pink Man',
-    'Virtual Guy',
-  ];
+  final List<String> _characters = ['Assassin'];
 
   @override
   void initState() {
@@ -30,16 +27,23 @@ class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
   }
 
   Future<void> _loadSpriteAnimation(String character) async {
-    final spriteImage = await Flame.images.load(
-        'Environment/Dungeon_Prison/Assets/Characters/Main Characters/$character/Idle (32x32).png');
+    final spriteImage =
+        await Flame.images.load('characters/$character/Idle (40x40).png');
+    final idleAnimation = SpriteAnimation.fromFrameData(
+      spriteImage,
+      SpriteAnimationData.sequenced(
+        amount: totalFrames,
+        stepTime: stepTime,
+        textureSize: Vector2(40, 40),
+      ),
+    );
+
     setState(() {
-      _spriteAnimation = SpriteAnimation.fromFrameData(
-        spriteImage,
-        SpriteAnimationData.sequenced(
-          amount: totalFrames,
-          stepTime: stepTime,
-          textureSize: Vector2(32, 32),
-        ),
+      _spriteAnimation = SpriteAnimationGroupComponent<CharacterState>(
+        animations: {CharacterState.idle: idleAnimation},
+        current: CharacterState.idle,
+        size: Vector2(80, 80),
+        anchor: Anchor.center,
       );
     });
   }
@@ -63,7 +67,7 @@ class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
           // Lớp ảnh nền
           Positioned.fill(
             child: Image.asset(
-              'assets/images/Menu/dugeonbg4.png', // Đường dẫn ảnh nền
+              'assets/backGround_IMG/dugeonbg4.png', // Đường dẫn ảnh nền
               fit: BoxFit.cover, // Ảnh phủ toàn màn hình
             ),
           ),
@@ -142,9 +146,9 @@ class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
-                            'assets/images/Environment/Dungeon_Prison/Assets/Characters/Main Characters/${_characters[index]}/Idle (32x32).png',
+                            'assets/characters/${_characters[index]}/Idle (40x40).png',
                             height: screenSize.height * 0.1,
-                            width: screenSize.width * 0.075,
+                            width: screenSize.width * 0.025,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -193,21 +197,20 @@ class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
 }
 
 class CharacterGame extends FlameGame {
-  final SpriteAnimation animation;
+  final SpriteAnimationGroupComponent<CharacterState> animation;
 
   CharacterGame({required this.animation});
 
   @override
   Future<void> onLoad() async {
-    if (animation != null) {
-      final screenSize = size; // Kích thước màn hình
-      add(SpriteAnimationComponent()
-        ..animation = animation
-        ..size = Vector2(80, 80) // Kích thước nhân vật
-        ..position = Vector2(
-          (screenSize.x - 90) / 2, // Căn giữa chiều ngang
-          (screenSize.y - 70) / 2, // Căn giữa chiều dọc
-        ));
-    }
+    // Thêm hoạt ảnh vào game
+    add(animation);
+  }
+
+  @override
+  void onMount() {
+    super.onMount();
+    // Đặt vị trí sau khi kích thước đã được khởi tạo
+    animation.position = size / 2;
   }
 }

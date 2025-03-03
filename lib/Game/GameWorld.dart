@@ -9,18 +9,10 @@ class GameWorld extends FlameGame {
   @override
   Future<void> onLoad() async {
     await images.loadAll([
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask Dude/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Ninja Frog/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Pink Man/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/Idle (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Virtual Guy/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask/Run (32x32).png',
-      'Environment/Dungeon_Prison/Assets/Characters/Main Characters/Mask/Idle (32x32).png',
-      'HUD/Knob.png',
+      'characters/Assassin/Idle (40x40).png',
+      'characters/Assassin/Run (40x40).png',
       'HUD/Joystick.png',
+      'HUD/Knob.png',
     ]);
 
     overlays.add(MainMenu.id);
