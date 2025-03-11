@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import '../../../Features/GamePlay/Entities/player.dart';
+import '../../../Features/GamePlay/Entities/Player.dart';
 import '../../../Presentation/Widgets/HUD/JoystickComponent.dart';
 
 class HUD extends PositionComponent with HasGameRef {

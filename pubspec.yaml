@@ -58,8 +58,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/tiles/
     - assets/Tilesets/
+    - assets/tiles/
     - assets/HUD/
     - assets/characters/Assassin/
     - assets/characters/Knight/
