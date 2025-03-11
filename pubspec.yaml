@@ -62,6 +62,10 @@ flutter:
     - assets/Tilesets/
     - assets/HUD/
     - assets/characters/Assassin/
+    - assets/characters/Knight/
+    - assets/characters/Mage/
+    - assets/characters/Merlin/
+    - assets/characters/Arthur/
     - assets/backGround_IMG/dugeonbg4.png
     - assets/backGround_IMG/google_icon.png
   # The following line ensures that the Material Icons font is

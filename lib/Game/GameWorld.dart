@@ -11,6 +11,14 @@ class GameWorld extends FlameGame {
     await images.loadAll([
       'characters/Assassin/Idle (40x40).png',
       'characters/Assassin/Run (40x40).png',
+      'characters/Knight/Idle (40x40).png',
+      'characters/Knight/Run (40x40).png',
+      'characters/Mage/Idle (40x40).png',
+      'characters/Mage/Run (40x40).png',
+      'characters/Merlin/Idle (40x40).png',
+      'characters/Merlin/Run (40x40).png',
+      'characters/Arthur/Idle (40x40).png',
+      'characters/Arthur/Run (40x40).png',
       'HUD/Joystick.png',
       'HUD/Knob.png',
     ]);

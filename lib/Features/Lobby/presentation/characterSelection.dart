@@ -4,6 +4,8 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:game_rpg/Features/Lobby/presentation/lobbyScreen.dart';
 
+import '../../GamePlay/Entities/character_assest.dart';
+
 enum CharacterState { idle }
 
 class CharacterSelectionWidget extends StatefulWidget {
@@ -14,47 +16,94 @@ class CharacterSelectionWidget extends StatefulWidget {
 
 class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
   int _selectedIndex = 0;
-  late SpriteAnimationGroupComponent<CharacterState> _spriteAnimation;
+  PageController _pageController = PageController(
+    viewportFraction: 0.3,
+    initialPage: 0,
+  );
+  SpriteAnimationGroupComponent<CharacterState>? _spriteAnimation;
   final double stepTime = 0.050;
   final int totalFrames = 8;
-
-  final List<String> _characters = ['Assassin'];
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadSpriteAnimation(_characters[_selectedIndex]);
+    _loadSpriteAnimation(_selectedIndex);
+
+    // Thêm listener cho pageController để cập nhật selectedIndex
+    _pageController.addListener(() {
+      // int currentPage = _pageController.page!.round();
+      // if (currentPage != _selectedIndex) {
+      //   _loadSpriteAnimation(currentPage);
+      // }
+      int currentPage = _pageController.page!.round();
+      if (currentPage != _selectedIndex) {
+        if (currentPage == characterAssets.length - 1 && _selectedIndex == 0) {
+          _pageController.jumpToPage(0); // Quay lại đầu khi đạt cuối
+        } else if (currentPage == 0 &&
+            _selectedIndex == characterAssets.length - 1) {
+          _pageController
+              .jumpToPage(characterAssets.length - 1); // Quay cuối khi đạt đầu
+        }
+        _loadSpriteAnimation(currentPage);
+      }
+    });
   }
 
-  Future<void> _loadSpriteAnimation(String character) async {
-    final spriteImage =
-        await Flame.images.load('characters/$character/Idle (40x40).png');
-    final idleAnimation = SpriteAnimation.fromFrameData(
-      spriteImage,
-      SpriteAnimationData.sequenced(
-        amount: totalFrames,
-        stepTime: stepTime,
-        textureSize: Vector2(40, 40),
-      ),
-    );
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
+  Future<void> _loadSpriteAnimation(int index) async {
     setState(() {
-      _spriteAnimation = SpriteAnimationGroupComponent<CharacterState>(
-        animations: {CharacterState.idle: idleAnimation},
-        current: CharacterState.idle,
-        size: Vector2(80, 80),
-        anchor: Anchor.center,
+      _isLoading = true;
+    });
+
+    try {
+      final spriteImage = await Flame.images
+          .load('${characterAssets[index].assetPath}/Idle (40x40).png');
+
+      final idleAnimation = SpriteAnimation.fromFrameData(
+        spriteImage,
+        SpriteAnimationData.sequenced(
+          amount: totalFrames,
+          stepTime: stepTime,
+          textureSize: Vector2.all(40),
+        ),
       );
-    });
+
+      if (mounted) {
+        setState(() {
+          _spriteAnimation = SpriteAnimationGroupComponent<CharacterState>(
+            animations: {CharacterState.idle: idleAnimation},
+            current: CharacterState.idle,
+            size: Vector2.all(40),
+            anchor: Anchor.center,
+          );
+          _selectedIndex = index;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Lỗi khi tải animation: $e');
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
-  void _onArrowPressed(int direction) async {
-    final newIndex =
-        (_selectedIndex + direction + _characters.length) % _characters.length;
-    await _loadSpriteAnimation(_characters[newIndex]);
-    setState(() {
-      _selectedIndex = newIndex;
-    });
+  void _onArrowPressed(int direction) {
+    int newIndex = (_selectedIndex + direction + characterAssets.length) %
+        characterAssets.length;
+    _pageController.animateToPage(
+      newIndex,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -64,28 +113,23 @@ class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
     return Scaffold(
       body: Stack(
         children: [
-          // Lớp ảnh nền
+          // Background
           Positioned.fill(
             child: Image.asset(
-              'assets/backGround_IMG/dugeonbg4.png', // Đường dẫn ảnh nền
-              fit: BoxFit.cover, // Ảnh phủ toàn màn hình
+              'assets/backGround_IMG/dugeonbg4.png',
+              fit: BoxFit.cover,
             ),
           ),
-
-          // Lớp phủ mờ màu đen
+          // Overlay
           Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.8), // Màu đen mờ
-            ),
+            child: Container(color: Colors.black.withOpacity(0.8)),
           ),
-
-          // Lớp nội dung chính
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Hàng 1: Hiển thị tên nhân vật
+              // Character name - Hàng 1
               Text(
-                _characters[_selectedIndex],
+                characterAssets[_selectedIndex].name,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: screenSize.width * 0.04,
@@ -93,96 +137,143 @@ class _CharacterSelectionWidgetState extends State<CharacterSelectionWidget> {
                 ),
               ),
 
-              // Hàng 2: Hiển thị nhân vật động
+              // Character animation - Hàng 2
+              Container(
+                height: 0,
+                child: Center(
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    width: screenSize.width * 0.4,
+                    height: screenSize.height * 0.55,
+                    child: _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.yellow,
+                            ),
+                          )
+                        : _spriteAnimation != null
+                            ? Transform.scale(
+                                scale: 2.7,
+                                child: GameWidget(
+                                  game: CharacterGame(
+                                      animation: _spriteAnimation!),
+                                ),
+                              )
+                            : SizedBox(),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.5,
+              ),
+              // Character carousel - Hàng 3
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_left, color: Colors.white, size: 50),
                     onPressed: () => _onArrowPressed(-1),
+                    icon: Icon(
+                      Icons.arrow_left, // Sử dụng icon tam giác mũi tên trái
+                      size: 80, // Phóng to kích thước icon
+                      color: Colors.white,
+                    ),
                   ),
-                  Container(
-                    height: 0,
-                    width: screenSize.width * 0.3,
-                    color: Colors.transparent, // Container trong suốt
-                    child: _spriteAnimation != null
-                        ? GameWidget(
-                            game: CharacterGame(animation: _spriteAnimation),
-                          )
-                        : Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.yellow,
+                  SizedBox(
+                    height: screenSize.height * 0.18,
+                    width: screenSize.height * 0.7,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: characterAssets.length,
+                      itemBuilder: (context, index) {
+                        bool isSelected = index == _selectedIndex;
+                        return GestureDetector(
+                          onTap: () {
+                            // Nhảy đến index được chọn
+                            _pageController.animateToPage(
+                              index,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                            // Cập nhật selectedIndex
+                            _loadSpriteAnimation(index);
+                          },
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 300),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: isSelected ? 0 : 4),
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? Colors.grey.withOpacity(0.3)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.transparent,
+                                width: 2,
+                              ),
+                            ),
+                            child: Center(
+                              child: Container(
+                                width: 54, // Nền 60x60
+                                height: 54, // Nền 60x60
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? Colors.greenAccent.withOpacity(0.5)
+                                      : Colors.grey.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Image.asset(
+                                  characterAssets[index].picturePath,
+                                  width: 40, // Ảnh 40x40
+                                  height: 40, // Ảnh 40x40
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                             ),
                           ),
+                        );
+                      },
+                    ),
                   ),
                   IconButton(
-                    icon:
-                        Icon(Icons.arrow_right, color: Colors.white, size: 40),
                     onPressed: () => _onArrowPressed(1),
+                    icon: Icon(
+                      Icons.arrow_right, // Sử dụng icon tam giác mũi tên phải
+                      size: 80, // Phóng to kích thước icon
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: 0.015),
-              // Hàng 3: Slider hiển thị các nhân vật tĩnh
-              SizedBox(
-                height: screenSize.height * 0.15,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _characters.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => _onArrowPressed(index - _selectedIndex),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _selectedIndex == index
-                                ? Colors.yellow
-                                : Colors.transparent,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            'assets/characters/${_characters[index]}/Idle (40x40).png',
-                            height: screenSize.height * 0.1,
-                            width: screenSize.width * 0.025,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
 
+              // Start button
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => LobbyScreen(
-                        nameCharacter: _characters[_selectedIndex],
+                        nameCharacter: characterAssets[_selectedIndex].name,
                       ),
                     ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow,
+                  backgroundColor: Colors.greenAccent.withOpacity(0.7),
                   padding: EdgeInsets.symmetric(
                     horizontal: screenSize.width * 0.08,
-                    vertical: screenSize.height * 0.015,
+                    vertical: screenSize.height * 0.010,
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: Text(
                   'Bắt đầu',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: screenSize.width * 0.04,
                     fontWeight: FontWeight.bold,
                   ),
@@ -203,14 +294,12 @@ class CharacterGame extends FlameGame {
 
   @override
   Future<void> onLoad() async {
-    // Thêm hoạt ảnh vào game
     add(animation);
   }
 
   @override
   void onMount() {
     super.onMount();
-    // Đặt vị trí sau khi kích thước đã được khởi tạo
     animation.position = size / 2;
   }
 }

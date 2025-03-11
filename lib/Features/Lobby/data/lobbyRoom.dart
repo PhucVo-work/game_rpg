@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:game_rpg/Features/GamePlay/Entities/Player.dart';
+import 'package:game_rpg/Features/GamePlay/Entities/player.dart';
 
 class LobbyRoom extends World {
   final Player player;

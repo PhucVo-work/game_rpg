@@ -9,17 +9,6 @@ class LobbyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sảnh Chờ"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
       body: GameWidget(game: LobbyGame(nameCharacter: nameCharacter)),
     );
   }

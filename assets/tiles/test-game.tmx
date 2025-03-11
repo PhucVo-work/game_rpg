@@ -110,6 +110,6 @@
 </data>
  </layer>
  <objectgroup id="5" name="spawnPoints">
-  <object id="5" name="Player" type="Player" x="467" y="251" width="22.5" height="31.5"/>
+  <object id="5" name="Player" type="Player" x="382.5" y="188" width="22.5" height="31.5"/>
  </objectgroup>
 </map>

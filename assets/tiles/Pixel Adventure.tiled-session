@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "E:/assets/tiles/test-game.tmx",
+    "activeFile": "test-game.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -75,11 +75,14 @@
         },
         "test-game.tmx": {
             "scale": 2,
-            "selectedLayer": 2,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 320,
-                "y": 184
+                "x": 433.5,
+                "y": 279.75
             }
+        },
+        "tiles/FG_Cellar.tsx": {
+            "scaleInDock": 1
         },
         "waiting-room.tmx": {
             "scale": 1.5,
@@ -107,13 +110,12 @@
     "map.width": 40,
     "openFiles": [
         "test-game.tmx",
-        "FG_Cellar.tsx",
-        "E:/assets/tiles/test-game.tmx"
+        "FG_Cellar.tsx"
     ],
     "project": "Pixel Adventure.tiled-project",
     "recentFiles": [
-        "test-game.tmx",
         "FG_Cellar.tsx",
+        "test-game.tmx",
         "E:/assets/tiles/test-game.tmx",
         "Dungeon_Tileset_16px.tsx",
         "dugeon tiles ver-1.tsx",

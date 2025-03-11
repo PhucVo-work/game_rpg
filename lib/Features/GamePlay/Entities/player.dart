@@ -11,8 +11,7 @@ enum PlayerState {
 
 enum PlayerDirection { left, right, none }
 
-class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<LobbyGame>, KeyboardHandler {
+class Player extends SpriteAnimationGroupComponent with HasGameRef<LobbyGame> {
   String character;
   Player({position, required this.character}) : super(position: position);
 
