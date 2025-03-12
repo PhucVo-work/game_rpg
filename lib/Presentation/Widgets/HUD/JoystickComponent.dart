@@ -2,7 +2,7 @@ import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../Features/GamePlay/Entities/player.dart';
+import '../../../Features/GamePlay/Entities/Player.dart';
 
 class CustomJoystickComponent extends JoystickComponent {
   final Player player;
