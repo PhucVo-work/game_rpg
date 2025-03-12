@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="5">
- <tileset firstgid="1" source="FG_Cellar.tsx"/>
- <tileset firstgid="967" source="FG_Cellar_A5.tsx"/>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="5">
+ <tileset firstgid="1" source="tiles/FG_Cellar.tsx"/>
+ <tileset firstgid="127" source="tiles/FG_Cellar_A5.tsx"/>
  <layer id="1" name="Tile Layer 1" width="20" height="20">
   <data encoding="csv">
 43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,
@@ -28,7 +28,7 @@
  </layer>
  <layer id="2" name="Ward" width="20" height="20">
   <data encoding="csv">
-6,7,979,7,979,7,7,7,0,0,0,0,10,7,979,7,979,7,7,8,
+6,7,139,7,139,7,7,7,0,0,0,0,10,7,139,7,139,7,7,8,
 38,39,39,39,39,39,39,39,123,123,123,123,39,39,39,39,39,39,39,72,
 38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,
 38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,
@@ -74,17 +74,17 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="gate_top">
-  <object id="3" x="128.5" y="0.5" width="62.5" height="30.5">
+ <objectgroup id="3" name="Gates" class="Gates">
+  <object id="3" name="Gates" x="129.608" y="0.5" width="62.5" height="30.5">
    <properties>
-    <property name="direction" value="&quot;top&quot;"/>
-    <property name="gateType" value="&quot;GateTop&quot;"/>
-    <property name="nextMap" value="&quot;hallway.tmx&quot;"/>
+    <property name="connectedGate" value="&quot;GateBottom&quot;"/>
+    <property name="connectedMap" value="&quot;hallway_vertical&quot;"/>
+    <property name="type" value="&quot;GateTop&quot;"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="5" name="spawnPoints">
-  <object id="4" name="Player" type="Player" x="143" y="15.5" width="33" height="32">
+  <object id="4" name="Player" type="Player" x="130.258" y="63.1454" width="33" height="32">
    <properties>
     <property name="type" value="Player"/>
    </properties>

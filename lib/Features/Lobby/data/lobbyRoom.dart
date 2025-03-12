@@ -1,16 +1,21 @@
 import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:game_rpg/Game/DynamicMapManager.dart';
 import 'package:game_rpg/Features/GamePlay/Entities/Player.dart';
+import 'package:game_rpg/Game/DynamicMapManager.dart';
 
 class LobbyRoom extends World {
   final Player player;
   final String mapName;
   final String nameCharacter;
   final DynamicMapManager mapManager = DynamicMapManager();
+  final Set<String> connectedGates = {}; // Lưu trạng thái các cổng đã kết nối
 
-  LobbyRoom({required this.mapName, required this.player, required this.nameCharacter});
+  LobbyRoom(
+      {required this.mapName,
+      required this.player,
+      required this.nameCharacter});
 
   @override
   FutureOr<void> onLoad() async {
@@ -18,14 +23,16 @@ class LobbyRoom extends World {
     mapManager.clearMaps();
 
     // Load map lobby chính
-    TiledComponent lobbyScreen = await mapManager.addMap(mapName, Vector2.zero());
+    TiledComponent lobbyScreen =
+        await mapManager.addMap(mapName, Vector2.zero());
     add(lobbyScreen);
 
     // Kiểm tra và kết nối các cổng trong map
     await _connectMapGates(lobbyScreen);
 
     // Lấy danh sách điểm spawn từ Tiled
-    final spawnPointsLayer = lobbyScreen.tileMap.getLayer<ObjectGroup>('spawnPoints');
+    final spawnPointsLayer =
+        lobbyScreen.tileMap.getLayer<ObjectGroup>('spawnPoints');
 
     if (spawnPointsLayer != null) {
       for (final spawnPoint in spawnPointsLayer.objects) {
@@ -38,63 +45,89 @@ class LobbyRoom extends World {
     }
   }
 
-  /// Kiểm tra và kết nối các cổng trong map
   Future<void> _connectMapGates(TiledComponent mapComponent) async {
-    // Lấy layer gates từ map
-    final gatesLayer = mapComponent.tileMap.getLayer<ObjectGroup>('gates');
-    if (gatesLayer == null) return;
+    final gatesLayer = mapComponent.tileMap.getLayer<ObjectGroup>('Gates');
+    if (gatesLayer == null) {
+      print("Không tìm thấy lớp Gates trong map.");
+      return;
+    }
 
-    // Duyệt qua từng cổng và kiểm tra kết nối
+    String? getPropertyByName(TiledObject object, String propertyName) {
+      final property = object.properties.firstWhere(
+        (p) => p.name == propertyName,
+      );
+      return property?.value?.toString();
+    }
+
     for (final gate in gatesLayer.objects) {
-      String? gateType = gate.properties.getValue<String>('type');
-      String? connectedMap = gate.properties.getValue<String>('connectedMap');
+      // Tìm thuộc tính 'type' và 'connectedMap'
+      String? type = getPropertyByName(gate, 'type');
+      String? connectedMap = getPropertyByName(gate, 'connectedMap');
 
-      // Nếu có thông tin về map kết nối, thêm hallway và map tiếp theo
-      if (gateType != null && connectedMap != null) {
-        await _connectGateToMap(gate, gateType, connectedMap);
+      if (type == null || connectedMap == null) {
+        print("Gate không có thuộc tính 'type' hoặc 'connectedMap'.");
+        continue;
+      }
+
+      print("Đã tìm thấy gate: type = $type, connectedMap = $connectedMap");
+
+      final gateKey = '${mapManager.mapNames[mapComponent] ?? mapName}_$type';
+      if (!connectedGates.contains(gateKey)) {
+        connectedGates.add(gateKey);
+        await _connectGateToMap(gate, type, connectedMap);
       }
     }
   }
 
   /// Kết nối cổng với map tiếp theo
-  Future<void> _connectGateToMap(TiledObject gate, String gateType, String connectedMap) async {
+  Future<void> _connectGateToMap(
+      TiledObject gate, String gateType, String connectedMap) async {
     String hallwayName;
     Vector2 hallwayPosition;
     Vector2 nextMapPosition;
 
-    // Xác định loại hallway và vị trí dựa trên loại cổng
     switch (gateType) {
       case 'GateTop':
         hallwayName = 'hallway_vertical';
         hallwayPosition = Vector2(gate.x - gate.width / 2, gate.y - 16 * 10);
-        nextMapPosition = Vector2(hallwayPosition.x, hallwayPosition.y - 16 * 20);
+        nextMapPosition =
+            Vector2(hallwayPosition.x, hallwayPosition.y - 16 * 20);
         break;
       case 'GateBottom':
         hallwayName = 'hallway_vertical';
-        hallwayPosition = Vector2(gate.x - gate.width / 2, gate.y + gate.height);
-        nextMapPosition = Vector2(hallwayPosition.x, hallwayPosition.y + 16 * 20);
+        hallwayPosition =
+            Vector2(gate.x - gate.width / 2, gate.y + gate.height);
+        nextMapPosition =
+            Vector2(hallwayPosition.x, hallwayPosition.y + 16 * 20);
         break;
       case 'GateLeft':
         hallwayName = 'hallway_horizontal';
         hallwayPosition = Vector2(gate.x - 16 * 20, gate.y - gate.height / 2);
-        nextMapPosition = Vector2(hallwayPosition.x - 16 * 20, hallwayPosition.y);
+        nextMapPosition =
+            Vector2(hallwayPosition.x - 16 * 20, hallwayPosition.y);
         break;
       case 'GateRight':
         hallwayName = 'hallway_horizontal';
-        hallwayPosition = Vector2(gate.x + gate.width, gate.y - gate.height / 2);
-        nextMapPosition = Vector2(hallwayPosition.x + 16 * 20, hallwayPosition.y);
+        hallwayPosition =
+            Vector2(gate.x + gate.width, gate.y - gate.height / 2);
+        nextMapPosition =
+            Vector2(hallwayPosition.x + 16 * 20, hallwayPosition.y);
         break;
       default:
         return;
     }
 
-    // Thêm hallway vào map
-    TiledComponent hallway = await mapManager.addMap(hallwayName, hallwayPosition);
+    // Thêm hallway và map tiếp theo
+    TiledComponent hallway =
+        await mapManager.addMap(hallwayName, hallwayPosition);
     add(hallway);
 
-    // Thêm map tiếp theo
-    TiledComponent nextMap = await mapManager.addMap(connectedMap, nextMapPosition);
+    TiledComponent nextMap =
+        await mapManager.addMap(connectedMap, nextMapPosition);
     add(nextMap);
+
+    // Kết nối các cổng trong map mới
+    await _connectMapGates(nextMap);
 
     print("Đã kết nối cổng $gateType với hallway và map $connectedMap");
   }
@@ -106,74 +139,19 @@ class LobbyRoom extends World {
 
     if (gateType == null) return;
 
-    // Nếu cổng chưa được kết nối, thực hiện kết nối
     if (connectedMap != null && !_isGateConnected(gate)) {
       await _connectGateToMap(gate, gateType, connectedMap);
     }
 
-    print("Đã chạm cổng $gateType");
+    print("Người chơi đã chạm vào cổng $gateType");
   }
 
   /// Kiểm tra xem cổng đã được kết nối chưa
   bool _isGateConnected(TiledObject gate) {
-    // Logic kiểm tra xem cổng đã được kết nối hay chưa
-    // Có thể thực hiện bằng cách kiểm tra vị trí của các map đã tải
-    // hoặc lưu danh sách các cổng đã kết nối
-
-    // Đơn giản hóa: kiểm tra xem có hallway ở vị trí tương ứng không
     String? gateType = gate.properties.getValue<String>('type');
     if (gateType == null) return false;
 
-    // Dựa vào gateType để xác định vị trí hallway
-    Vector2 expectedHallwayPosition;
-    switch (gateType) {
-      case 'GateTop':
-        expectedHallwayPosition = Vector2(gate.x - gate.width / 2, gate.y - 16 * 10);
-        break;
-      case 'GateBottom':
-        expectedHallwayPosition = Vector2(gate.x - gate.width / 2, gate.y + gate.height);
-        break;
-      case 'GateLeft':
-        expectedHallwayPosition = Vector2(gate.x - 16 * 20, gate.y - gate.height / 2);
-        break;
-      case 'GateRight':
-        expectedHallwayPosition = Vector2(gate.x + gate.width, gate.y - gate.height / 2);
-        break;
-      default:
-        return false;
-    }
-
-    // Kiểm tra xem có map nào ở vị trí này không
-    for (var map in mapManager.loadedMaps) {
-      if ((map.position - expectedHallwayPosition).length < 5) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /// Khi đi hết hallway, nối với map tiếp theo
-  void onHallwayExit(TiledObject exitGate) async {
-    String? nextMap = exitGate.properties.getValue<String>('nextMap');
-    if (nextMap == null) return;
-
-    Vector2 nextMapPosition = Vector2(exitGate.x, exitGate.y);
-
-    // Kiểm tra xem map đã được tải chưa
-    bool mapExists = false;
-    for (var map in mapManager.loadedMaps) {
-      if (mapManager.mapNames[map] == nextMap) {
-        mapExists = true;
-        break;
-      }
-    }
-
-    // Nếu map chưa tồn tại, thêm mới
-    if (!mapExists) {
-      TiledComponent newMap = await mapManager.addMapByName(nextMap, nextMapPosition);
-      add(newMap);
-      print("Đã thêm map mới: $nextMap");
-    }
+    final gateKey = '${mapName}_$gateType';
+    return connectedGates.contains(gateKey);
   }
 }

@@ -29,7 +29,7 @@ class LobbyGame extends FlameGame
 
     // Tạo thế giới
     final world = LobbyRoom(
-        mapName: 'Room1', nameCharacter: nameCharacter, player: player);
+        mapName: 'tiles/Room1', nameCharacter: nameCharacter, player: player);
     add(world);
 
     // Tạo camera và thiết lập theo dõi player

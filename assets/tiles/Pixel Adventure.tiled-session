@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "test-game.tmx",
+    "activeFile": "Room1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -44,8 +44,24 @@
             }
         },
         "FG_Cellar.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1.5,
             "scaleInEditor": 1.5
+        },
+        "FG_Cellar_A5.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "Room1.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1.805,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 160.66481994459835,
+                "y": 15.789473684210549
+            }
         },
         "dugenon tiles.tsx": {
             "scaleInDock": 2,
@@ -68,6 +84,17 @@
             "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
+        "hallway_vertical.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1.805,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 159.55678670360115,
+                "y": 312.18836565096956
+            }
+        },
         "main room.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -77,11 +104,15 @@
             "scale": 2,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 433.5,
-                "y": 279.75
+                "x": 320,
+                "y": 107.75
             }
         },
         "tiles/FG_Cellar.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "tiles/FG_Cellar_A5.tsx": {
             "scaleInDock": 1
         },
         "waiting-room.tmx": {
@@ -110,12 +141,16 @@
     "map.width": 40,
     "openFiles": [
         "test-game.tmx",
-        "FG_Cellar.tsx"
+        "FG_Cellar.tsx",
+        "Room1.tmx",
+        "hallway_vertical.tmx"
     ],
     "project": "Pixel Adventure.tiled-project",
     "recentFiles": [
-        "FG_Cellar.tsx",
         "test-game.tmx",
+        "FG_Cellar.tsx",
+        "hallway_vertical.tmx",
+        "Room1.tmx",
         "E:/assets/tiles/test-game.tmx",
         "Dungeon_Tileset_16px.tsx",
         "dugeon tiles ver-1.tsx",
@@ -123,9 +158,7 @@
         "Dungeon_Tileset_17px.tsx",
         "Dungeon_Tileset_18PX.tsx",
         "Dungeon_Tileset_32PX.tsx",
-        "Dungeon_Tileset.tsx",
-        "dugeon tiles ver-3.tsx",
-        "Dungeon_Tileset_16PX.tsx"
+        "Dungeon_Tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
