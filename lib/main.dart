@@ -1,44 +1,37 @@
 import 'package:flame/flame.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flame/game.dart';
-import 'package:game_rpg/Game/GameWorld.dart';
-import 'package:game_rpg/Presentation/Screens/main_menu.dart';
-import 'package:game_rpg/Presentation/Widgets/settings.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:game_rpg/menu.dart';
+import 'package:game_rpg/util/localization/my_localizations_delegate.dart';
 
+import 'util/sounds.dart';
+
+double tileSize = 32;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Khởi tạo Firebase
-  FirebaseAuth.instance.setLanguageCode('vi');
-  await Flame.device.fullScreen();
-  await Flame.device.setLandscape();
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final game = GameWorld(); // Tạo game trước khi truyền vào GameWidget
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Game RPG',
-      home: GameWidget(
-        game: game,
-        overlayBuilderMap: {
-          MainMenu.id: (context, _) =>
-              MainMenu(onSettingsPressed: game.showSettings),
-          Settings.id: (context, _) => Settings(
-            musicValueNotifier: game.musicValueNotifier,
-            onBackPressed: game.hideSettings,
-          ),
-        },
-        initialActiveOverlays: const [MainMenu.id],
-      ),
-    );
+  if (!kIsWeb) {
+    await Flame.device.setLandscape();
+    await Flame.device.fullScreen();
   }
+  await Sounds.initialize();
+  MyLocalizationsDelegate myLocation = const MyLocalizationsDelegate();
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Normal',
+      ),
+      home: Menu(),
+      supportedLocales: MyLocalizationsDelegate.supportedLocales(),
+      localizationsDelegates: [
+        myLocation,
+        DefaultCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      localeResolutionCallback: myLocation.resolution,
+    ),
+  );
 }
