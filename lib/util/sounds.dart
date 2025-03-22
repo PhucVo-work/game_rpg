@@ -41,7 +41,16 @@ class Sounds {
     FlameAudio.bgm.play('sound_bg.mp3');
   }
 
-  static void playBackgroundBoosSound() {
+  static stopMenuSound() async {
+    return FlameAudio.bgm.stop();
+  }
+
+  static void playMenuSound() async {
+    await FlameAudio.bgm.stop();
+    FlameAudio.bgm.play('sound_menu.mp3');
+  }
+
+  static void playBackgroundBossSound() {
     FlameAudio.bgm.play('battle_boss.mp3');
   }
 

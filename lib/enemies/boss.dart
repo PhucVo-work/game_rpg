@@ -254,7 +254,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
         addInitChild();
         Future.delayed(Duration(milliseconds: 500), () {
           gameRef.camera.moveToPlayerAnimated(zoom: 1);
-          Sounds.playBackgroundBoosSound();
+          Sounds.playBackgroundBossSound();
         });
       },
       onChangeTalk: (index) {

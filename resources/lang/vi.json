@@ -1,0 +1,21 @@
+{
+  "play_cap": "CHƠI",
+  "credits_cap": "TÍN DỤNG",
+  "powered_by": "Được hỗ trợ bởi ",
+  "built_with": "Xây dựng bằng ",
+  "talk_wizard_1": "Chào hiệp sĩ trẻ!\nCậu đến đây làm gì?",
+  "talk_player_1": "Chào ông!\nTôi được cử đến để giải cứu một đứa trẻ bị bắt cóc bởi những sinh vật sống ở khu vực này.",
+  "talk_wizard_2": "Hừm...\nTa không muốn làm cậu nhụt chí, nhưng cậu là hiệp sĩ thứ năm được gửi đến làm nhiệm vụ này. Cho đến nay, không ai trong số họ trở về còn sống và thi thể của họ đang treo trên các bức tường như những chiến lợi phẩm.",
+  "talk_player_2": "Đừng lo lắng ông già. Một hiệp sĩ như tôi chưa từng tồn tại trước đây!\nTôi sẽ tiêu diệt tất cả sinh vật ở nơi này và giải cứu đứa trẻ!",
+  "talk_wizard_3": "Vâng, sự tự tin là thứ mà cậu không thiếu!\nVậy thì đừng nói rằng ta đã không cảnh báo cậu!\nChúc may mắn!",
+  "talk_kid_1": "Cứu! Cứu với!",
+  "talk_boss_1": "Im đi, sinh vật nhỏ ngon lành!\nĐã đến lúc nếm thử làn da mềm mại của ngươi! ha ha ha ha",
+  "talk_player_3": "Lần này ngươi sẽ không thoát đâu, đồ sinh vật kinh tởm!\nNhững ngày tháng quái vật của ngươi đã kết thúc!",
+  "talk_boss_2": "Nhìn kìa! Một hiệp sĩ khác với cái tôi quá lớn nghĩ rằng có thể ngăn cản ta! ha ha ha ha\nLại đây nào!",
+  "talk_kid_2": "Cảm tạ các vị thần!!! \nNgài đã đánh bại sinh vật khủng khiếp này! Cảm ơn ngài rất nhiều! \nTôi không biết làm sao để cảm ơn ngài!",
+  "talk_player_4": "Đó là một vinh dự khi có thể giúp cậu! Và đừng lo lắng về việc thưởng cho tôi, cha cậu đã hứa với tôi một gia tài để cứu cậu! :-)",
+  "play_again_cap": "CHƠI LẠI",
+  "congratulations": "CHÚC MỪNG!",
+  "thanks": "Cảm ơn bạn đã thử nghiệm trò chơi và cảm nhận sức mạnh của Flame và Bonfire trong việc xây dựng trò chơi 2D.\nCó lẽ chúng ta sẽ có phần tiếp theo của trò chơi!\nHy vọng bạn đã thích!",
+  "door_without_key": "Tôi nghĩ tôi cần một chiếc chìa khóa để đi qua đây!"
+}

@@ -61,9 +61,10 @@ flutter:
     - assets/images/player/
     - assets/images/items/
     - assets/images/tiled/
+    - assets/gif/
     - assets/audio/
     - resources/lang/en.json
-    - resources/lang/pt.json
+    - resources/lang/vi.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

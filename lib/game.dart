@@ -43,8 +43,8 @@ class GameState extends State<Game> {
   Widget build(BuildContext context) {
     PlayerController joystick = Joystick(
       directional: JoystickDirectional(
-        spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
-        spriteKnobDirectional: Sprite.load('joystick_knob.png'),
+        spriteBackgroundDirectional: Sprite.load('Joystick.png'),
+        spriteKnobDirectional: Sprite.load('Knob.png'),
         size: 100,
         isFixed: false,
       ),
@@ -88,7 +88,7 @@ class GameState extends State<Game> {
           Vector2(2 * tileSize, 3 * tileSize),
         ),
         map: WorldMapByTiled(
-          WorldMapReader.fromAsset('tiled/map1.json'),
+          WorldMapReader.fromAsset('tiled/map.json'),
           forceTileSize: Vector2(tileSize, tileSize),
           objectsBuilder: {
             'door': (p) => Door(p.position, p.size),

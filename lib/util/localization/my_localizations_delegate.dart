@@ -7,7 +7,7 @@ class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
   const MyLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'pt'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['en', 'vi'].contains(locale.languageCode);
 
   @override
   Future<MyLocalizations> load(Locale locale) async {
@@ -33,6 +33,6 @@ class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
   }
 
   static List<Locale> supportedLocales() {
-    return [const Locale('en', 'US'), const Locale('pt', 'BR')];
+    return [const Locale('en', 'US'), const Locale('vi', 'VN')];
   }
 }
