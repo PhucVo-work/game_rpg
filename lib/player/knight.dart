@@ -2,7 +2,6 @@ import 'dart:async' as async;
 
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:game_rpg/main.dart';
 import 'package:game_rpg/util/functions.dart';
 import 'package:game_rpg/util/game_sprite_sheet.dart';
@@ -22,7 +21,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
           size: Vector2.all(tileSize),
           position: position,
           life: 80000,
-          speed: tileSize * 2.5,
+          speed: tileSize * 9.0, //2.5
         ) {
     setupLighting(
       LightingConfig(
@@ -53,16 +52,17 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
     if (event.id == 0 && event.event == ActionEvent.DOWN) {
       actionAttack();
     }
-
-    if (event.id == LogicalKeyboardKey.space &&
-        event.event == ActionEvent.DOWN) {
-      actionAttack();
-    }
-
-    if (event.id == LogicalKeyboardKey.keyZ &&
-        event.event == ActionEvent.DOWN) {
-      actionAttackRange();
-    }
+    // Dành cho keyboard
+    //
+    // if (event.id == LogicalKeyboardKey.space &&
+    //     event.event == ActionEvent.DOWN) {
+    //   actionAttack();
+    // }
+    //
+    // if (event.id == LogicalKeyboardKey.keyZ &&
+    //     event.event == ActionEvent.DOWN) {
+    //   actionAttackRange();
+    // }
 
     if (event.id == 1 && event.event == ActionEvent.DOWN) {
       actionAttackRange();

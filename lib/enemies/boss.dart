@@ -61,7 +61,9 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
             onComplete: _showConversation,
           );
         },
-        radiusVision: tileSize * 6,
+        radiusVision:
+            tileSize * 6, // khi thấy player trong bán kính 6xtitleSize
+        // thì thực thi observed
       );
     }
 
@@ -159,7 +161,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
 
   void execAttack() {
     this.simpleAttackMelee(
-      size: Vector2.all(tileSize * 0.62),
+      size: Vector2.all(tileSize * 0.90),
       damage: attack,
       interval: 1500,
       animationRight: EnemySpriteSheet.enemyAttackEffectRight(),

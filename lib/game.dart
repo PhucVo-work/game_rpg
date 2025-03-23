@@ -1,6 +1,5 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:game_rpg/decoration/door.dart';
 import 'package:game_rpg/decoration/key.dart';
 import 'package:game_rpg/decoration/potion_life.dart';
@@ -66,17 +65,18 @@ class GameState extends State<Game> {
       ],
     );
 
-    if (!Game.useJoystick) {
-      joystick = Keyboard(
-        config: KeyboardConfig(
-          directionalKeys: [KeyboardDirectionalKeys.arrows()],
-          acceptedKeys: [
-            LogicalKeyboardKey.space,
-            LogicalKeyboardKey.keyZ,
-          ],
-        ),
-      );
-    }
+    // xóa chức năng bàn phím
+    // if (!Game.useJoystick) {
+    //   joystick = Keyboard(
+    //     config: KeyboardConfig(
+    //       directionalKeys: [KeyboardDirectionalKeys.arrows()],
+    //       acceptedKeys: [
+    //         LogicalKeyboardKey.space,
+    //         LogicalKeyboardKey.keyZ,
+    //       ],
+    //     ),
+    //   );
+    // }
 
     return Material(
       color: Colors.transparent,
@@ -88,7 +88,7 @@ class GameState extends State<Game> {
           Vector2(2 * tileSize, 3 * tileSize),
         ),
         map: WorldMapByTiled(
-          WorldMapReader.fromAsset('tiled/map.json'),
+          WorldMapReader.fromAsset('tiled/island.json'),
           forceTileSize: Vector2(tileSize, tileSize),
           objectsBuilder: {
             'door': (p) => Door(p.position, p.size),
@@ -99,7 +99,7 @@ class GameState extends State<Game> {
             'key': (p) => DoorKey(p.position),
             'kid': (p) => Kid(p.position),
             'boss': (p) => Boss(p.position),
-            'goblin': (p) => Goblin(p.position),
+            'orc': (p) => Goblin(p.position),
             'imp': (p) => Imp(p.position),
             'mini_boss': (p) => MiniBoss(p.position),
             'torch_empty': (p) => Torch(p.position, empty: true),
@@ -107,12 +107,27 @@ class GameState extends State<Game> {
         ),
         components: [GameController()],
         interface: KnightInterface(),
-        lightingColorGame: Colors.black.withOpacity(0.6),
+        lightingColorGame: Colors.deepOrangeAccent
+            .withOpacity(0.2), //Colors.black.withOpacity(0.6),
         backgroundColor: Colors.grey[900]!,
         cameraConfig: CameraConfig(
           speed: 3,
           zoom: getZoomFromMaxVisibleTile(context, tileSize, 18),
         ),
+        overlayBuilderMap: {
+          'miniMap': (context, game) => MiniMap(
+                game: game,
+                margin: const EdgeInsets.all(20),
+                borderRadius: BorderRadius.circular(10),
+                size: Vector2.all(
+                  150,
+                ),
+                border: Border.all(color: Colors.white.withOpacity(0.5)),
+              ),
+        },
+        initialActiveOverlays: const [
+          'miniMap',
+        ],
         // progress: Container(
         //   color: Colors.black,
         //   child: Center(
