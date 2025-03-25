@@ -9,7 +9,7 @@ import 'package:game_rpg/util/player_sprite_sheet.dart';
 import 'package:game_rpg/util/sounds.dart';
 
 class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
-  double attack = 25;
+  double attack = 200; //25
   double stamina = 100;
   async.Timer? _timerStamina;
   bool containKey = false;
@@ -20,7 +20,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
           animation: PlayerSpriteSheet.playerAnimations(),
           size: Vector2.all(tileSize),
           position: position,
-          life: 80000,
+          life: 80000, //150
           speed: tileSize * 9.0, //2.5
         ) {
     setupLighting(
@@ -44,6 +44,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
         ),
       ),
     );
+    print('Knight loaded at: $position');
     return super.onLoad();
   }
 

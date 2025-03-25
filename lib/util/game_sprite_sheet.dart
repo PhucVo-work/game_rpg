@@ -88,4 +88,12 @@ class GameSpriteSheet {
           textureSize: Vector2(32, 32),
         ),
       );
+  static Future<SpriteAnimation> portal() => SpriteAnimation.load(
+        'portal/purple/portal_idle(64x64).png',
+        SpriteAnimationData.sequenced(
+          amount: 8,
+          stepTime: 0.055,
+          textureSize: Vector2(64, 64),
+        ),
+      );
 }
