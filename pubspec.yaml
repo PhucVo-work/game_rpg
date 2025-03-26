@@ -61,7 +61,7 @@ flutter:
     - assets/images/player/
     - assets/images/items/
     - assets/images/tiled/
-    - assets/images/portal/purple/
+    - assets/images/portal/green/
     - assets/gif/
     - assets/audio/
     - resources/lang/en.json

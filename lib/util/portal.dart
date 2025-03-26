@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:flutter/material.dart';
 import 'package:game_rpg/game.dart';
 import 'package:game_rpg/main.dart';
 import 'package:game_rpg/player/knight.dart';
@@ -16,7 +17,16 @@ class Portal extends GameDecoration with Sensor {
           animation: GameSpriteSheet.portal(),
           position: position,
           size: Vector2(tileSize * 2, tileSize * 2),
-        );
+        ) {
+    setupLighting(
+      LightingConfig(
+        radius: width * 1.5,
+        blurBorder: width,
+        pulseVariation: 0.1,
+        color: Colors.deepOrangeAccent.withOpacity(0.2),
+      ),
+    );
+  }
 
   @override
   Future<void> onLoad() async {

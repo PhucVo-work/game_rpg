@@ -5,6 +5,7 @@ import 'package:game_rpg/player/knight.dart';
 import 'package:game_rpg/util/map_config.dart';
 import 'package:game_rpg/util/sounds.dart';
 
+import 'interface/pause_menu.dart';
 import 'main.dart';
 
 class Game extends StatefulWidget {
@@ -90,15 +91,38 @@ class GameState extends State<Game> {
           GameController(updateMapIndex: updateMapIndex),
         ],
         overlayBuilderMap: {
-          'miniMap': (context, game) => MiniMap(
-                game: game,
-                margin: const EdgeInsets.all(20),
-                borderRadius: BorderRadius.circular(10),
-                size: Vector2.all(150),
-                border: Border.all(color: Colors.white.withOpacity(0.5)),
+          'miniMap': (context, game) => Positioned(
+                top: 20,
+                right: 90,
+                child: MiniMap(
+                  game: game,
+                  size: Vector2.all(100),
+                  margin: EdgeInsets.only(right: 80, top: 20),
+                  zoom: 0.6,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.white.withOpacity(0.5)),
+                ),
+              ),
+          PauseMenu.overlayKey: (context, game) => PauseMenu(game: game),
+          'pauseButton': (context, game) => Positioned(
+                top: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    game.paused = true; // Tạm dừng game
+                    game.overlays
+                        .add(PauseMenu.overlayKey); // Hiển thị PauseMenu
+                  },
+                  child: Image.asset(
+                    'assets/images/pause_button.jpg', // Path ảnh pause button
+                    width: 60, // Kích thước nhỏ
+                    height: 30,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
         },
-        initialActiveOverlays: const ['miniMap'],
+        initialActiveOverlays: const ['miniMap', 'pauseButton'],
       ),
     );
   }

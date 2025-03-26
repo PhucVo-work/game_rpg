@@ -19,7 +19,7 @@ class MapConfig {
 
   static final List<Map<String, dynamic>> maps = [
     {
-      'path': 'tiled/map1.json',
+      'path': 'tiled/map4.json',
       'bossBuilder': (Vector2 p) => IceBoss(p),
       'kidDialogues': ['talk_kid_5', 'talk_kid_6'],
       'objects': [
