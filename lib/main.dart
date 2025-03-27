@@ -5,12 +5,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:game_rpg/menu.dart';
 import 'package:game_rpg/util/localization/CustomCupertinoLocalizationsDelegate.dart';
 import 'package:game_rpg/util/localization/my_localizations_delegate.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import 'util/sounds.dart';
 
 double tileSize = 32;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter(); // Khởi tạo Hive
+  await Hive.openBox('gameData'); // Mở box để lưu trữ dữ liệu
   if (!kIsWeb) {
     await Flame.device.setLandscape();
     await Flame.device.fullScreen();

@@ -1,5 +1,8 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
+import '../game.dart';
 
 class PauseMenu extends StatelessWidget {
   final BonfireGame game;
@@ -39,9 +42,16 @@ class PauseMenu extends StatelessWidget {
                     minimumSize: const Size(100, 40),
                   ),
                   onPressed: () {
-                    game.paused = false; // Tiếp tục game
-                    game.overlays.remove(overlayKey); // Ẩn menu
-                    // TODO: Thêm logic lưu game nếu cần
+                    final box = Hive.box('gameData');
+                    final gameState =
+                        context.findAncestorStateOfType<GameState>();
+                    if (gameState != null) {
+                      box.put('currentMapIndex', gameState.currentMapIndex);
+                      print(
+                          'Saved currentMapIndex: ${gameState.currentMapIndex}');
+                    }
+                    // game.paused = false; // Tiếp tục game
+                    // game.overlays.remove(overlayKey); // Ẩn menu
                   },
                   child: const Text(
                     'Save',

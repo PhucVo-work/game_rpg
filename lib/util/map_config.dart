@@ -15,23 +15,7 @@ import '../enemies/ice_boss.dart';
 import '../main.dart';
 
 class MapConfig {
-  // static const double tileSize = 32;
-
   static final List<Map<String, dynamic>> maps = [
-    {
-      'path': 'tiled/map4.json',
-      'bossBuilder': (Vector2 p) => IceBoss(p),
-      'kidDialogues': ['talk_kid_5', 'talk_kid_6'],
-      'objects': [
-        'boss',
-        'kid',
-        'spikes',
-        'key',
-        'mini_boss',
-        'torch_empty',
-        'imp'
-      ],
-    },
     {
       'path': 'tiled/map.json',
       'bossBuilder': (Vector2 p) => FireBoss(p),
@@ -50,6 +34,20 @@ class MapConfig {
         'potion',
         'torch_empty',
         'key'
+      ],
+    },
+    {
+      'path': 'tiled/map1.json',
+      'bossBuilder': (Vector2 p) => IceBoss(p),
+      'kidDialogues': ['talk_kid_5', 'talk_kid_6'],
+      'objects': [
+        'boss',
+        'kid',
+        'spikes',
+        'key',
+        'mini_boss',
+        'torch_empty',
+        'imp'
       ],
     },
   ];

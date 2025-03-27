@@ -52,7 +52,7 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
         positioned: (p) {
           execAttackRange();
         },
-        radiusVision: tileSize * 5,
+        radiusVision: tileSize * 20, // 5 default
       );
     }
   }
@@ -77,7 +77,8 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2.all(tileSize * 0.65),
       damage: attack,
-      speed: speed * 2.5,
+      useAngle: true, // 26-03
+      speed: speed * 5.0, //2.5
       execute: () {
         Sounds.attackRange();
       },
