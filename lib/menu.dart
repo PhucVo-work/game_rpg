@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:game_rpg/util/custom_sprite_animation_widget.dart';
 import 'package:game_rpg/util/enemy_sprite_sheet.dart';
 import 'package:game_rpg/util/localization/strings_location.dart';
+import 'package:game_rpg/util/npc_sprite_sheet.dart';
 import 'package:game_rpg/util/player_sprite_sheet.dart';
 import 'package:game_rpg/util/sounds.dart';
+import 'package:hive_flutter/hive_flutter.dart'; // Import Hive
 import 'package:url_launcher/url_launcher.dart';
 
 import 'game.dart';
@@ -27,7 +29,15 @@ class _MenuState extends State<Menu> {
     EnemySpriteSheet.goblinIdleRight(),
     EnemySpriteSheet.impIdleRight(),
     EnemySpriteSheet.miniBossIdleRight(),
-    EnemySpriteSheet.bossIdleRight(),
+    EnemySpriteSheet.boss1IdleRight(),
+    EnemySpriteSheet.boss2IdleRight(), //*
+    NpcSpriteSheet.wizardIdleLeft(),
+    NpcSpriteSheet.kidIdleLeft(),
+    EnemySpriteSheet.boss3IdleRight(),
+    EnemySpriteSheet.maskOrcIdleRight(), //*
+    EnemySpriteSheet.miniOrcIdleRight(),
+    EnemySpriteSheet.orcIdleRight(),
+    EnemySpriteSheet.orcShamanIdleRight(),
   ];
 
   @override
@@ -61,6 +71,11 @@ class _MenuState extends State<Menu> {
   }
 
   Widget buildMenu() {
+    // Kiểm tra xem Hive có dữ liệu currentMapIndex không
+    final box = Hive.box('gameData');
+    final hasSavedGame = box.containsKey('currentMapIndex') &&
+        (box.get('currentMapIndex') as int) > 0;
+
     return Stack(children: [
       Positioned.fill(
         child: Image.asset(
@@ -99,6 +114,7 @@ class _MenuState extends State<Menu> {
                 SizedBox(
                   height: 30.0,
                 ),
+                // Nút Play (bắt đầu từ map 0)
                 SizedBox(
                   width: 150,
                   child: ElevatedButton(
@@ -112,7 +128,7 @@ class _MenuState extends State<Menu> {
                           color: Colors.white,
                         ),
                       ),
-                      minimumSize: Size(100, 40), //////// HERE
+                      minimumSize: Size(100, 40),
                     ),
                     child: Text(
                       getString('play_cap'),
@@ -125,118 +141,65 @@ class _MenuState extends State<Menu> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Game()),
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              Game(initialMapIndex: 0), // Bắt đầu từ map 0
+                        ),
                       );
                     },
                   ),
                 ),
+                // Nút Continue (nếu có dữ liệu save)
+                hasSavedGame
+                    ? Column(
+                        children: [
+                          SizedBox(height: 20),
+                          SizedBox(
+                            width: 150,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    side: BorderSide(
+                                      width: 2,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  minimumSize: Size(100, 40),
+                                  maximumSize: Size(100, 40)),
+                              child: Text(
+                                getString('continue_play'),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Normal',
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              onPressed: () {
+                                final savedIndex =
+                                    box.get('currentMapIndex') as int;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Game(initialMapIndex: savedIndex),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink(),
                 SizedBox(
                   height: 20,
                 ),
-                // phát triển thêm tính năng chơi trên bàn phím
-                // DefectorRadio<bool>(
-                //   value: false,
-                //   label: 'Keyboard',
-                //   group: Game.useJoystick,
-                //   onChange: (value) {
-                //     setState(() {
-                //       Game.useJoystick = value;
-                //     });
-                //   },
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // DefectorRadio<bool>(
-                //   value: true,
-                //   group: Game.useJoystick,
-                //   label: 'Joystick',
-                //   onChange: (value) {
-                //     setState(() {
-                //       Game.useJoystick = value;
-                //     });
-                //   },
-                // ),
-                SizedBox(
-                  height: 20,
-                ),
-                if (!Game.useJoystick)
-                  SizedBox(
-                    height: 80,
-                    width: 200,
-                    child: Sprite.load('keyboard_tip.png').asWidget(),
-                  ),
               ],
             ),
           ),
         ),
-        // bottomNavigationBar: SafeArea(
-        //   child: Container(
-        //     height: 20,
-        //     margin: EdgeInsets.all(20.0),
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       children: <Widget>[
-        //         Flexible(
-        //           child: Row(
-        //             mainAxisSize: MainAxisSize.min,
-        //             children: <Widget>[
-        //               Text(
-        //                 getString(''),
-        //                 style: TextStyle(
-        //                     color: Colors.white,
-        //                     fontFamily: 'Normal',
-        //                     fontSize: 12.0),
-        //               ),
-        //               InkWell(
-        //                 onTap: () {
-        //                   _launchURL('https://github.com/PhucVo-work');
-        //                 },
-        //                 child: Text(
-        //                   'https://github.com/PhucVo-work/game_rpg',
-        //                   style: TextStyle(
-        //                     decoration: TextDecoration.underline,
-        //                     color: Colors.blue,
-        //                     fontFamily: 'Normal',
-        //                     fontSize: 12.0,
-        //                   ),
-        //                 ),
-        //               )
-        //             ],
-        //           ),
-        //         ),
-        //         Flexible(
-        //           child: Row(
-        //             mainAxisSize: MainAxisSize.min,
-        //             children: <Widget>[
-        //               Text(
-        //                 getString('https://github.com/PhucVo-work'),
-        //                 style: TextStyle(
-        //                     color: Colors.white,
-        //                     fontFamily: 'Normal',
-        //                     fontSize: 12.0),
-        //               ),
-        //               InkWell(
-        //                 onTap: () {
-        //                   _launchURL('https://github.com/PhucVo-work');
-        //                 },
-        //                 child: Text(
-        //                   'Danh, Phúc, Thảo',
-        //                   style: TextStyle(
-        //                     decoration: TextDecoration.underline,
-        //                     color: Colors.blue,
-        //                     fontFamily: 'Normal',
-        //                     fontSize: 12.0,
-        //                   ),
-        //                 ),
-        //               )
-        //             ],
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
     ]);
   }
@@ -250,7 +213,7 @@ class _MenuState extends State<Menu> {
           height: height,
           child: Image.asset(
             'assets/gif/game_intro_animation.gif',
-            fit: BoxFit.cover, // Đảm bảo GIF phủ kín màn hình mà không bị méo
+            fit: BoxFit.cover,
           ),
         ),
       ),

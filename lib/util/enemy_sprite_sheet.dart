@@ -38,8 +38,9 @@ class EnemySpriteSheet {
         ),
       );
 
-  static Future<SpriteAnimation> bossIdleRight() => SpriteAnimation.load(
-        'enemy/boss/boss_idle.png',
+  //boss1
+  static Future<SpriteAnimation> boss1IdleRight() => SpriteAnimation.load(
+        'enemy/boss1/boss_idle.png',
         SpriteAnimationData.sequenced(
           amount: 4,
           stepTime: 0.1,
@@ -47,18 +48,18 @@ class EnemySpriteSheet {
         ),
       );
 
-  static SimpleDirectionAnimation bossAnimations() => SimpleDirectionAnimation(
+  static SimpleDirectionAnimation boss1Animations() => SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
-          'enemy/boss/boss_idle_left.png',
+          'enemy/boss1/boss_idle_left.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
             textureSize: Vector2(32, 36),
           ),
         ),
-        idleRight: bossIdleRight(),
+        idleRight: boss1IdleRight(),
         runLeft: SpriteAnimation.load(
-          'enemy/boss/boss_run_left.png',
+          'enemy/boss1/boss_run_left.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -66,7 +67,7 @@ class EnemySpriteSheet {
           ),
         ),
         runRight: SpriteAnimation.load(
-          'enemy/boss/boss_run_right.png',
+          'enemy/boss1/boss_run.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -75,6 +76,83 @@ class EnemySpriteSheet {
         ),
       );
 
+  //boss2
+  static Future<SpriteAnimation> boss2IdleRight() => SpriteAnimation.load(
+        'enemy/boss2/boss_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(32, 36),
+        ),
+      );
+
+  static SimpleDirectionAnimation boss2Animations() => SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/boss2/boss_idle_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
+        idleRight: boss2IdleRight(),
+        runLeft: SpriteAnimation.load(
+          'enemy/boss2/boss_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/boss2/boss_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
+      );
+
+  // boss3
+  static Future<SpriteAnimation> boss3IdleRight() => SpriteAnimation.load(
+        'enemy/boss3/boss_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(32, 36),
+        ),
+      );
+
+  static SimpleDirectionAnimation boss3Animations() => SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/boss3/boss_idle_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
+        idleRight: boss3IdleRight(),
+        runLeft: SpriteAnimation.load(
+          'enemy/boss3/boss_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/boss3/boss_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
+      );
+
+  //Goblin
   static Future<SpriteAnimation> goblinIdleRight() => SpriteAnimation.load(
         'enemy/goblin/goblin_idle.png',
         SpriteAnimationData.sequenced(
@@ -116,6 +194,190 @@ class EnemySpriteSheet {
             amount: 6,
             stepTime: 0.1,
             textureSize: Vector2(16, 16),
+          ),
+        ),
+      );
+
+  //Mini Orc
+
+  static Future<SpriteAnimation> miniOrcIdleRight() => SpriteAnimation.load(
+        'enemy/mini_orc/mini_orc_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
+
+  static SimpleDirectionAnimation miniOrcAnimations() =>
+      SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/mini_orc/mini_orc_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        idleRight: SpriteAnimation.load(
+          'enemy/mini_orc/mini_orc_idle.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        runLeft: SpriteAnimation.load(
+          'enemy/mini_orc/mini_orc_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/mini_orc/mini_orc_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+      );
+
+  // Orc
+  static Future<SpriteAnimation> orcIdleRight() => SpriteAnimation.load(
+        'enemy/orc/orc_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
+
+  static SimpleDirectionAnimation orcAnimations() => SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/orc/orc_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        idleRight: SpriteAnimation.load(
+          'enemy/orc/orc_idle.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        runLeft: SpriteAnimation.load(
+          'enemy/orc/orc_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/orc/orc_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 16),
+          ),
+        ),
+      );
+
+  // Orc Shaman
+  static Future<SpriteAnimation> orcShamanIdleRight() => SpriteAnimation.load(
+        'enemy/orc_shaman/orc_shaman_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
+
+  static SimpleDirectionAnimation orcShamanAnimations() =>
+      SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/orc_shaman/orc_shaman_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+        idleRight: SpriteAnimation.load(
+          'enemy/orc_shaman/orc_shaman_idle.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+        runLeft: SpriteAnimation.load(
+          'enemy/orc_shaman/orc_shaman_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/orc_shaman/orc_shaman_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+      );
+
+  //Mask Orc
+  static Future<SpriteAnimation> maskOrcIdleRight() => SpriteAnimation.load(
+        'enemy/mask_orc/masked_orc_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 23),
+        ),
+      );
+
+  static SimpleDirectionAnimation maskOrcAnimations() =>
+      SimpleDirectionAnimation(
+        idleLeft: SpriteAnimation.load(
+          'enemy/mask_orc/masked_orc_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+        idleRight: SpriteAnimation.load(
+          'enemy/mask_orc/masked_orc_idle.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+        runLeft: SpriteAnimation.load(
+          'enemy/mask_orc/masked_orc_run_left.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
+          ),
+        ),
+        runRight: SpriteAnimation.load(
+          'enemy/mask_orc/masked_orc_run_right.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(16, 23),
           ),
         ),
       );

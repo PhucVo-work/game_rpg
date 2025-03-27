@@ -10,7 +10,9 @@ import 'main.dart';
 
 class Game extends StatefulWidget {
   static bool useJoystick = true;
-  const Game({Key? key}) : super(key: key);
+  final int initialMapIndex;
+
+  const Game({Key? key, required this.initialMapIndex}) : super(key: key);
 
   @override
   GameState createState() => GameState();
@@ -23,7 +25,7 @@ class GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
-    currentMapIndex = 0;
+    currentMapIndex = widget.initialMapIndex;
     currentMap = MapConfig.getMap(currentMapIndex)!;
     Sounds.playBackgroundSound();
     print('Game initialized with map index: $currentMapIndex');

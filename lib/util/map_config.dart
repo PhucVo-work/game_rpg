@@ -3,7 +3,7 @@ import 'package:game_rpg/decoration/door.dart';
 import 'package:game_rpg/decoration/potion_life.dart';
 import 'package:game_rpg/decoration/spikes.dart';
 import 'package:game_rpg/decoration/torch.dart';
-import 'package:game_rpg/enemies/fire_boss.dart';
+import 'package:game_rpg/enemies/boss2.dart';
 import 'package:game_rpg/enemies/goblin.dart';
 import 'package:game_rpg/enemies/imp.dart';
 import 'package:game_rpg/enemies/mini_boss.dart';
@@ -11,46 +11,77 @@ import 'package:game_rpg/npc/kid.dart';
 import 'package:game_rpg/npc/wizard_npc.dart';
 
 import '../decoration/key.dart';
-import '../enemies/ice_boss.dart';
+import '../enemies/Boss1.dart';
+import '../enemies/MaskOrc.dart';
+import '../enemies/MiniOrc.dart';
+import '../enemies/Orc.dart';
+import '../enemies/OrcShaman.dart';
+import '../enemies/boss3.dart';
 import '../main.dart';
 
 class MapConfig {
-  // static const double tileSize = 32;
-
   static final List<Map<String, dynamic>> maps = [
     {
-      'path': 'tiled/map4.json',
-      'bossBuilder': (Vector2 p) => IceBoss(p),
-      'kidDialogues': ['talk_kid_5', 'talk_kid_6'],
+      'path': 'tiled/map3.json',
+      'bossBuilder': (Vector2 p) => Boss3(p),
+      'kidDialogues': ['talk_kid_10', 'talk_kid_11', 'talk_player_11'],
+      'wizardDialogues': [
+        'talk_wizard_4',
+        'talk_player_5',
+        'talk_wizard_5',
+        'talk_player_6',
+        'talk_wizard_6',
+      ],
       'objects': [
         'boss',
         'kid',
+        'potion',
+        'torch',
+        'door',
         'spikes',
         'key',
+        'goblin',
         'mini_boss',
         'torch_empty',
         'imp'
       ],
     },
     {
-      'path': 'tiled/map.json',
-      'bossBuilder': (Vector2 p) => FireBoss(p),
-      'kidDialogues': ['talk_kid_3', 'talk_kid_4'],
+      'path': 'tiled/map2.json',
+      'bossBuilder': (Vector2 p) => Boss2(p),
+      'kidDialogues': ['talk_kid_5', 'talk_kid_6', 'talk_player_8'],
+      'wizardDialogues': [
+        'talk_wizard_4',
+        'talk_player_5',
+        'talk_wizard_5',
+        'talk_player_6',
+        'talk_wizard_6',
+      ],
       'objects': [
         'boss',
         'kid',
-        'door',
-        'torch',
-        'potion',
         'wizard',
-        'orc',
+        'door',
+        'key',
         'spikes',
-        'imp',
-        'mini_boss',
-        'potion',
+        'orc',
+        'orc_shaman',
         'torch_empty',
-        'key'
+        'imp'
       ],
+    },
+    {
+      'path': 'tiled/map1.json',
+      'bossBuilder': (Vector2 p) => Boss1(p),
+      'kidDialogues': ['talk_kid_3', 'talk_kid_4', 'talk_player_4'],
+      'wizardDialogues': [
+        'talk_wizard_1',
+        'talk_player_1',
+        'talk_wizard_2',
+        'talk_player_2',
+        'talk_wizard_3',
+      ],
+      'objects': ['boss', 'kid', 'wizard', 'mini_orc', 'mask_orc'],
     },
   ];
 
@@ -68,23 +99,29 @@ class MapConfig {
         defaultObjectsBuilder = {
       'boss': (p) => mapData['bossBuilder'](p.position),
       'kid': (p) => Kid(p.position, index),
+      'key': (p) => DoorKey(p.position),
+      'potion': (p) => PotionLife(p.position, 30),
       'door': (p) => Door(p.position, p.size),
       'torch': (p) => Torch(p.position),
-      'potion': (p) => PotionLife(p.position, 30),
-      'wizard': (p) => WizardNPC(p.position),
+      'wizard': (p) => WizardNPC(p.position, index),
       'spikes': (p) => Spikes(p.position),
-      'key': (p) => DoorKey(p.position),
-      'orc': (p) => Goblin(p.position),
+      'goblin': (p) => Goblin(p.position),
       'imp': (p) => Imp(p.position),
       'mini_boss': (p) => MiniBoss(p.position),
       'torch_empty': (p) => Torch(p.position, empty: true),
+      'orc_shaman': (p) => OrcShaman(p.position),
+      'mask_orc': (p) => MaskOrc(p.position),
+      'mini_orc': (p) => MiniOrc(p.position),
+      'orc': (p) => Orc(p.position),
     };
 
     final Map<String, GameComponent Function(TiledObjectProperties)>
         objectsBuilder = {};
     for (var obj in objects) {
       if (defaultObjectsBuilder.containsKey(obj)) {
+        print('${obj}');
         objectsBuilder[obj] = defaultObjectsBuilder[obj]!;
+        print('${objectsBuilder[obj]}');
       }
     }
 

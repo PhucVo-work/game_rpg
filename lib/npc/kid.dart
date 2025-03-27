@@ -7,6 +7,7 @@ import 'package:game_rpg/util/npc_sprite_sheet.dart';
 import '../enemies/bossEntity.dart';
 import '../main.dart';
 import '../util/map_config.dart';
+import '../util/player_sprite_sheet.dart';
 import '../util/portal.dart';
 import '../util/sounds.dart';
 
@@ -55,6 +56,12 @@ class Kid extends GameDecoration {
               animation: NpcSpriteSheet.kidIdleLeft()),
           personSayDirection: PersonSayDirection.RIGHT,
         ),
+        Say(
+          text: [TextSpan(text: getString(dialogues[2]))],
+          person: CustomSpriteAnimationWidget(
+              animation: PlayerSpriteSheet.idleRight()),
+          personSayDirection: PersonSayDirection.LEFT,
+        )
       ],
       onFinish: () {
         Sounds.interaction(); // Thêm âm thanh

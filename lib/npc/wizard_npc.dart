@@ -1,6 +1,5 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:game_rpg/main.dart';
 import 'package:game_rpg/util/custom_sprite_animation_widget.dart';
 import 'package:game_rpg/util/localization/strings_location.dart';
@@ -8,11 +7,14 @@ import 'package:game_rpg/util/npc_sprite_sheet.dart';
 import 'package:game_rpg/util/player_sprite_sheet.dart';
 import 'package:game_rpg/util/sounds.dart';
 
+import '../util/map_config.dart';
+
 class WizardNPC extends SimpleNpc {
   bool _showConversation = false;
-  WizardNPC(
-    Vector2 position,
-  ) : super(
+  final int mapIndex;
+
+  WizardNPC(Vector2 position, this.mapIndex)
+      : super(
           animation: SimpleDirectionAnimation(
             idleRight: NpcSpriteSheet.wizardIdleLeft(),
             runRight: NpcSpriteSheet.wizardIdleLeft(),
@@ -64,12 +66,14 @@ class WizardNPC extends SimpleNpc {
 
   void _showIntroduction() {
     Sounds.interaction();
+    final dialogues =
+        MapConfig.maps[mapIndex]['wizardDialogues'] as List<String>;
     TalkDialog.show(
       gameRef.context,
       [
         Say(
           text: [
-            TextSpan(text: getString('talk_wizard_1')),
+            TextSpan(text: getString(dialogues[0])),
           ],
           person: CustomSpriteAnimationWidget(
             animation: NpcSpriteSheet.wizardIdleLeft(),
@@ -77,28 +81,28 @@ class WizardNPC extends SimpleNpc {
           personSayDirection: PersonSayDirection.RIGHT,
         ),
         Say(
-          text: [TextSpan(text: getString('talk_player_1'))],
+          text: [TextSpan(text: getString(dialogues[1]))],
           person: CustomSpriteAnimationWidget(
             animation: PlayerSpriteSheet.idleRight(),
           ),
           personSayDirection: PersonSayDirection.LEFT,
         ),
         Say(
-          text: [TextSpan(text: getString('talk_wizard_2'))],
+          text: [TextSpan(text: getString(dialogues[2]))],
           person: CustomSpriteAnimationWidget(
             animation: NpcSpriteSheet.wizardIdleLeft(),
           ),
           personSayDirection: PersonSayDirection.RIGHT,
         ),
         Say(
-          text: [TextSpan(text: getString('talk_player_2'))],
+          text: [TextSpan(text: getString(dialogues[3]))],
           person: CustomSpriteAnimationWidget(
             animation: PlayerSpriteSheet.idleRight(),
           ),
           personSayDirection: PersonSayDirection.LEFT,
         ),
         Say(
-          text: [TextSpan(text: getString('talk_wizard_3'))],
+          text: [TextSpan(text: getString(dialogues[4]))],
           person: CustomSpriteAnimationWidget(
             animation: NpcSpriteSheet.wizardIdleLeft(),
           ),
@@ -111,9 +115,6 @@ class WizardNPC extends SimpleNpc {
       onFinish: () {
         Sounds.interaction();
       },
-      logicalKeyboardKeysToNext: [
-        LogicalKeyboardKey.space,
-      ],
     );
   }
 }
