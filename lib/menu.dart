@@ -94,7 +94,7 @@ class _MenuState extends State<Menu> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "Darkness Dungeon",
+                  "Ngục Tối",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Normal',

@@ -1,283 +1,9 @@
-// import 'package:bonfire/bonfire.dart';
-// import 'package:flutter/material.dart';
-// import 'package:game_rpg/enemies/imp.dart';
-// import 'package:game_rpg/enemies/mini_boss.dart';
-// import 'package:game_rpg/util/custom_sprite_animation_widget.dart';
-// import 'package:game_rpg/util/enemy_sprite_sheet.dart';
-// import 'package:game_rpg/util/functions.dart';
-// import 'package:game_rpg/util/game_sprite_sheet.dart';
-// import 'package:game_rpg/util/localization/strings_location.dart';
-// import 'package:game_rpg/util/npc_sprite_sheet.dart';
-// import 'package:game_rpg/util/player_sprite_sheet.dart';
-// import 'package:game_rpg/util/sounds.dart';
-//
-// import '../main.dart';
-//
-// abstract class BossEntity extends SimpleEnemy
-//     with BlockMovementCollision, UseLifeBar {
-//   final Vector2 initPosition;
-//   double attack = 40;
-//
-//   bool addChild = false;
-//   bool firstSeePlayer = false;
-//   List<Enemy> childrenEnemy = [];
-//
-//   BossEntity(this.initPosition)
-//       : super(
-//           animation: EnemySpriteSheet.bossAnimations(),
-//           position: initPosition,
-//           size: Vector2(tileSize * 1.5, tileSize * 1.7),
-//           speed: tileSize * 1.5,
-//           life: 200,
-//         );
-//
-//   @override
-//   Future<void> onLoad() {
-//     add(
-//       RectangleHitbox(
-//         size: Vector2(valueByTileSize(14), valueByTileSize(16)),
-//         position: Vector2(valueByTileSize(5), valueByTileSize(11)),
-//       ),
-//     );
-//     return super.onLoad();
-//   }
-//
-//   @override
-//   void render(Canvas canvas) {
-//     drawBarSummonEnemy(canvas);
-//     super.render(canvas);
-//   }
-//
-//   @override
-//   void update(double dt) {
-//     if (!firstSeePlayer) {
-//       this.seePlayer(
-//         observed: (p) {
-//           firstSeePlayer = true;
-//           gameRef.camera.moveToTargetAnimated(
-//             target: this,
-//             zoom: 2,
-//             onComplete: _showConversation,
-//           );
-//         },
-//         radiusVision: tileSize * 6,
-//       );
-//     }
-//
-//     if (life < 150 && childrenEnemy.length == 0) {
-//       addChildInMap(dt);
-//     }
-//
-//     if (life < 100 && childrenEnemy.length == 1) {
-//       addChildInMap(dt);
-//     }
-//
-//     if (life < 50 && childrenEnemy.length == 2) {
-//       addChildInMap(dt);
-//     }
-//
-//     this.seeAndMoveToPlayer(
-//       closePlayer: (player) {
-//         executeSkill();
-//       },
-//       radiusVision: tileSize * 4,
-//     );
-//
-//     super.update(dt);
-//   }
-//
-//   @override
-//   void onDie() {
-//     gameRef.add(
-//       AnimatedGameObject(
-//         animation: GameSpriteSheet.explosion(),
-//         position: this.position,
-//         size: Vector2(32, 32),
-//         loop: false,
-//       ),
-//     );
-//     childrenEnemy.forEach((e) {
-//       if (!e.isDead) e.onDie();
-//     });
-//     removeFromParent();
-//     super.onDie();
-//   }
-//
-//   void addChildInMap(double dt) {
-//     if (checkInterval('addChild', 2000, dt)) {
-//       Vector2 positionExplosion = Vector2.zero();
-//
-//       switch (this.directionThePlayerIsIn()) {
-//         case Direction.left:
-//           positionExplosion = this.position.translated(width * -2, 0);
-//           break;
-//         case Direction.right:
-//           positionExplosion = this.position.translated(width * 2, 0);
-//           break;
-//         case Direction.up:
-//           positionExplosion = this.position.translated(0, height * -2);
-//           break;
-//         case Direction.down:
-//           positionExplosion = this.position.translated(0, height * 2);
-//           break;
-//         case Direction.upLeft:
-//         case Direction.upRight:
-//         case Direction.downLeft:
-//         case Direction.downRight:
-//           break;
-//         default:
-//       }
-//
-//       Enemy e = childrenEnemy.length == 2
-//           ? MiniBoss(positionExplosion)
-//           : Imp(positionExplosion);
-//
-//       gameRef.add(
-//         AnimatedGameObject(
-//           animation: GameSpriteSheet.smokeExplosion(),
-//           position: positionExplosion,
-//           size: Vector2(32, 32),
-//           loop: false,
-//         ),
-//       );
-//
-//       childrenEnemy.add(e);
-//       gameRef.add(e);
-//     }
-//   }
-//
-//   void execAttack() {
-//     this.simpleAttackMelee(
-//       size: Vector2.all(tileSize * 0.90),
-//       damage: attack,
-//       interval: 1500,
-//       animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-//       execute: () {
-//         Sounds.attackEnemyMelee();
-//       },
-//     );
-//   }
-//
-//   @override
-//   void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
-//     this.showDamage(
-//       damage,
-//       config: TextStyle(
-//         fontSize: valueByTileSize(5),
-//         color: Colors.white,
-//         fontFamily: 'Normal',
-//       ),
-//     );
-//     super.onReceiveDamage(attacker, damage, id);
-//   }
-//
-//   void drawBarSummonEnemy(Canvas canvas) {
-//     double yPosition = 0;
-//     double widthBar = (width - 10) / 3;
-//     if (childrenEnemy.length < 1)
-//       canvas.drawLine(
-//           Offset(0, yPosition),
-//           Offset(widthBar, yPosition),
-//           Paint()
-//             ..color = Colors.orange
-//             ..strokeWidth = 1
-//             ..style = PaintingStyle.fill);
-//
-//     double lastX = widthBar + 5;
-//     if (childrenEnemy.length < 2)
-//       canvas.drawLine(
-//           Offset(lastX, yPosition),
-//           Offset(lastX + widthBar, yPosition),
-//           Paint()
-//             ..color = Colors.orange
-//             ..strokeWidth = 1
-//             ..style = PaintingStyle.fill);
-//
-//     lastX = lastX + widthBar + 5;
-//     if (childrenEnemy.length < 3)
-//       canvas.drawLine(
-//           Offset(lastX, yPosition),
-//           Offset(lastX + widthBar, yPosition),
-//           Paint()
-//             ..color = Colors.orange
-//             ..strokeWidth = 1
-//             ..style = PaintingStyle.fill);
-//   }
-//
-//   void _showConversation() {
-//     Sounds.interaction();
-//     TalkDialog.show(
-//       gameRef.context,
-//       [
-//         Say(
-//           text: [TextSpan(text: getString('talk_kid_1'))],
-//           person: CustomSpriteAnimationWidget(
-//               animation: NpcSpriteSheet.kidIdleLeft()),
-//           personSayDirection: PersonSayDirection.RIGHT,
-//         ),
-//         Say(
-//           text: [TextSpan(text: getString('talk_boss_1'))],
-//           person: CustomSpriteAnimationWidget(
-//               animation: EnemySpriteSheet.bossIdleRight()),
-//         ),
-//         Say(
-//           text: [TextSpan(text: getString('talk_player_3'))],
-//           person: CustomSpriteAnimationWidget(
-//               animation: PlayerSpriteSheet.idleRight()),
-//           personSayDirection: PersonSayDirection.LEFT,
-//         ),
-//         Say(
-//           text: [TextSpan(text: getString('talk_boss_2'))],
-//           person: CustomSpriteAnimationWidget(
-//               animation: EnemySpriteSheet.bossIdleRight()),
-//         ),
-//       ],
-//       onFinish: () {
-//         Sounds.interaction();
-//         addInitChild();
-//         Future.delayed(Duration(milliseconds: 500), () {
-//           gameRef.camera.moveToPlayerAnimated(zoom: 1);
-//           Sounds.playBackgroundBossSound();
-//         });
-//       },
-//       onChangeTalk: (index) => Sounds.interaction(),
-//     );
-//   }
-//
-//   void addInitChild() {
-//     addImp(width * -2, 0);
-//     addImp(width * -2, width);
-//   }
-//
-//   void addImp(double x, double y) {
-//     final p = position.translated(x, y);
-//     gameRef.add(
-//       AnimatedGameObject(
-//         animation: GameSpriteSheet.smokeExplosion(),
-//         position: p,
-//         size: Vector2.all(tileSize),
-//         loop: false,
-//       ),
-//     );
-//     gameRef.add(Imp(p));
-//   }
-//
-//   // Phương thức abstract để các class con ghi đè
-//   void executeSkill();
-// }
-
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:game_rpg/enemies/imp.dart';
 import 'package:game_rpg/enemies/mini_boss.dart';
-import 'package:game_rpg/util/custom_sprite_animation_widget.dart';
-import 'package:game_rpg/util/enemy_sprite_sheet.dart';
 import 'package:game_rpg/util/functions.dart';
 import 'package:game_rpg/util/game_sprite_sheet.dart';
-import 'package:game_rpg/util/localization/strings_location.dart';
-import 'package:game_rpg/util/npc_sprite_sheet.dart';
-import 'package:game_rpg/util/player_sprite_sheet.dart';
-import 'package:game_rpg/util/sounds.dart';
 
 import '../main.dart';
 
@@ -285,21 +11,17 @@ abstract class BossEntity extends SimpleEnemy
     with BlockMovementCollision, UseLifeBar {
   final Vector2 initPosition;
   double attack;
-  final double life;
-  final double speed;
-  final SimpleDirectionAnimation animation;
-
   bool addChild = false;
   bool firstSeePlayer = false;
   List<Enemy> childrenEnemy = [];
 
   BossEntity({
     required this.initPosition,
-    required this.life,
-    required this.speed,
-    required Vector2 size,
-    required this.animation,
     required this.attack,
+    required double life,
+    required double speed,
+    required Vector2 size,
+    required SimpleDirectionAnimation animation,
   }) : super(
           animation: animation,
           position: initPosition,
@@ -328,35 +50,30 @@ abstract class BossEntity extends SimpleEnemy
   @override
   void update(double dt) {
     if (!firstSeePlayer) {
-      this.seePlayer(
+      seePlayer(
         observed: (p) {
           firstSeePlayer = true;
+          print("BossEntity: Gọi _showConversation cho ${runtimeType}");
           gameRef.camera.moveToTargetAnimated(
             target: this,
             zoom: 2,
-            onComplete: _showConversation,
+            onComplete: () => showConversation(),
           );
         },
         radiusVision: tileSize * 6,
       );
     }
 
-    if (life < (this.life * 0.75) && childrenEnemy.length == 0) {
+    if (life < (maxLife * 0.75) && childrenEnemy.isEmpty) {
+      addChildInMap(dt);
+    } else if (life < (maxLife * 0.5) && childrenEnemy.length == 1) {
+      addChildInMap(dt);
+    } else if (life < (maxLife * 0.25) && childrenEnemy.length == 2) {
       addChildInMap(dt);
     }
 
-    if (life < (this.life * 0.5) && childrenEnemy.length == 1) {
-      addChildInMap(dt);
-    }
-
-    if (life < (this.life * 0.25) && childrenEnemy.length == 2) {
-      addChildInMap(dt);
-    }
-
-    this.seeAndMoveToPlayer(
-      closePlayer: (player) {
-        executeSkill();
-      },
+    seeAndMoveToPlayer(
+      closePlayer: (player) => executeSkill(),
       radiusVision: tileSize * 4,
     );
 
@@ -365,11 +82,10 @@ abstract class BossEntity extends SimpleEnemy
 
   @override
   void onDie() {
-    print('boss is dead');
     gameRef.add(
       AnimatedGameObject(
         animation: GameSpriteSheet.explosion(),
-        position: this.position,
+        position: position,
         size: Vector2(32, 32),
         loop: false,
       ),
@@ -383,27 +99,22 @@ abstract class BossEntity extends SimpleEnemy
 
   void addChildInMap(double dt) {
     if (checkInterval('addChild', 2000, dt)) {
-      Vector2 positionExplosion = Vector2.zero();
-
-      switch (this.directionThePlayerIsIn()) {
+      Vector2 positionExplosion;
+      switch (directionThePlayerIsIn()) {
         case Direction.left:
-          positionExplosion = this.position.translated(width * -2, 0);
+          positionExplosion = position.translated(width * -2, 0);
           break;
         case Direction.right:
-          positionExplosion = this.position.translated(width * 2, 0);
+          positionExplosion = position.translated(width * 2, 0);
           break;
         case Direction.up:
-          positionExplosion = this.position.translated(0, height * -2);
+          positionExplosion = position.translated(0, height * -2);
           break;
         case Direction.down:
-          positionExplosion = this.position.translated(0, height * 2);
-          break;
-        case Direction.upLeft:
-        case Direction.upRight:
-        case Direction.downLeft:
-        case Direction.downRight:
+          positionExplosion = position.translated(0, height * 2);
           break;
         default:
+          positionExplosion = position.translated(width * 2, 0);
       }
 
       Enemy e = childrenEnemy.length == 2
@@ -418,27 +129,15 @@ abstract class BossEntity extends SimpleEnemy
           loop: false,
         ),
       );
-
       childrenEnemy.add(e);
       gameRef.add(e);
     }
   }
 
-  void execAttack() {
-    this.simpleAttackMelee(
-      size: Vector2.all(tileSize * 0.90),
-      damage: attack,
-      interval: 1500,
-      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-      execute: () {
-        Sounds.attackEnemyMelee();
-      },
-    );
-  }
-
   @override
   void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
-    this.showDamage(
+    print("Boss1 nhận sát thương: $damage từ $attacker. Máu hiện tại: $life");
+    showDamage(
       damage,
       config: TextStyle(
         fontSize: valueByTileSize(5),
@@ -452,75 +151,42 @@ abstract class BossEntity extends SimpleEnemy
   void drawBarSummonEnemy(Canvas canvas) {
     double yPosition = 0;
     double widthBar = (width - 10) / 3;
-    if (childrenEnemy.length < 1)
+    if (childrenEnemy.length < 1) {
       canvas.drawLine(
-          Offset(0, yPosition),
-          Offset(widthBar, yPosition),
-          Paint()
-            ..color = Colors.orange
-            ..strokeWidth = 1
-            ..style = PaintingStyle.fill);
-
+        Offset(0, yPosition),
+        Offset(widthBar, yPosition),
+        Paint()
+          ..color = Colors.orange
+          ..strokeWidth = 1
+          ..style = PaintingStyle.fill,
+      );
+    }
     double lastX = widthBar + 5;
-    if (childrenEnemy.length < 2)
+    if (childrenEnemy.length < 2) {
       canvas.drawLine(
-          Offset(lastX, yPosition),
-          Offset(lastX + widthBar, yPosition),
-          Paint()
-            ..color = Colors.orange
-            ..strokeWidth = 1
-            ..style = PaintingStyle.fill);
-
-    lastX = lastX + widthBar + 5;
-    if (childrenEnemy.length < 3)
+        Offset(lastX, yPosition),
+        Offset(lastX + widthBar, yPosition),
+        Paint()
+          ..color = Colors.orange
+          ..strokeWidth = 1
+          ..style = PaintingStyle.fill,
+      );
+    }
+    lastX += widthBar + 5;
+    if (childrenEnemy.length < 3) {
       canvas.drawLine(
-          Offset(lastX, yPosition),
-          Offset(lastX + widthBar, yPosition),
-          Paint()
-            ..color = Colors.orange
-            ..strokeWidth = 1
-            ..style = PaintingStyle.fill);
+        Offset(lastX, yPosition),
+        Offset(lastX + widthBar, yPosition),
+        Paint()
+          ..color = Colors.orange
+          ..strokeWidth = 1
+          ..style = PaintingStyle.fill,
+      );
+    }
   }
 
-  void _showConversation() {
-    Sounds.interaction();
-    TalkDialog.show(
-      gameRef.context,
-      [
-        Say(
-          text: [TextSpan(text: getString('talk_kid_1'))],
-          person: CustomSpriteAnimationWidget(
-              animation: NpcSpriteSheet.kidIdleLeft()),
-          personSayDirection: PersonSayDirection.RIGHT,
-        ),
-        Say(
-          text: [TextSpan(text: getString('talk_boss_1'))],
-          person: CustomSpriteAnimationWidget(
-              animation: EnemySpriteSheet.boss1IdleRight()),
-        ),
-        Say(
-          text: [TextSpan(text: getString('talk_player_3'))],
-          person: CustomSpriteAnimationWidget(
-              animation: PlayerSpriteSheet.idleRight()),
-          personSayDirection: PersonSayDirection.LEFT,
-        ),
-        Say(
-          text: [TextSpan(text: getString('talk_boss_2'))],
-          person: CustomSpriteAnimationWidget(
-              animation: EnemySpriteSheet.boss1IdleRight()),
-        ),
-      ],
-      onFinish: () {
-        Sounds.interaction();
-        addInitChild();
-        Future.delayed(Duration(milliseconds: 500), () {
-          gameRef.camera.moveToPlayerAnimated(zoom: 1);
-          Sounds.playBackgroundBossSound();
-        });
-      },
-      onChangeTalk: (index) => Sounds.interaction(),
-    );
-  }
+  void showConversation(); // Phương thức trừu tượng cho hội thoại
+  void executeSkill(); // Phương thức trừu tượng cho kỹ năng
 
   void addInitChild() {
     addImp(width * -2, 0);
@@ -539,7 +205,4 @@ abstract class BossEntity extends SimpleEnemy
     );
     gameRef.add(Imp(p));
   }
-
-  // Phương thức abstract để các class con ghi đè
-  void executeSkill();
 }

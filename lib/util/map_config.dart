@@ -3,6 +3,7 @@ import 'package:game_rpg/decoration/door.dart';
 import 'package:game_rpg/decoration/potion_life.dart';
 import 'package:game_rpg/decoration/spikes.dart';
 import 'package:game_rpg/decoration/torch.dart';
+import 'package:game_rpg/enemies/boss1.dart';
 import 'package:game_rpg/enemies/boss2.dart';
 import 'package:game_rpg/enemies/goblin.dart';
 import 'package:game_rpg/enemies/imp.dart';
@@ -11,7 +12,6 @@ import 'package:game_rpg/npc/kid.dart';
 import 'package:game_rpg/npc/wizard_npc.dart';
 
 import '../decoration/key.dart';
-import '../enemies/Boss1.dart';
 import '../enemies/MaskOrc.dart';
 import '../enemies/MiniOrc.dart';
 import '../enemies/Orc.dart';
@@ -21,6 +21,34 @@ import '../main.dart';
 
 class MapConfig {
   static final List<Map<String, dynamic>> maps = [
+    {
+      'path': 'tiled/map.json',
+      'bossBuilder': (Vector2 p) => Boss1(p),
+      'kidDialogues': ['talk_kid_5', 'talk_kid_6', 'talk_player_8'],
+      'wizardDialogues': [
+        'talk_wizard_4',
+        'talk_player_5',
+        'talk_wizard_5',
+        'talk_player_6',
+        'talk_wizard_6',
+      ],
+      'objects': [
+        'boss',
+        'kid',
+        'door',
+        'key',
+        'spikes',
+        'orc',
+        'orc_shaman',
+        'torch_empty',
+        'imp',
+        'wizard',
+        'potion',
+        'mini_boss',
+        'torch',
+        'torch_empty'
+      ],
+    },
     {
       'path': 'tiled/map3.json',
       'bossBuilder': (Vector2 p) => Boss3(p),

@@ -65,7 +65,7 @@ class Boss3 extends BossEntity {
   }
 
   @override
-  void _showConversation() {
+  void showConversation() {
     Sounds.interaction();
     TalkDialog.show(
       gameRef.context,

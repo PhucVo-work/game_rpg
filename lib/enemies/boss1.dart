@@ -20,14 +20,13 @@ class Boss1 extends BossEntity {
           life: 200,
           speed: tileSize * 1.5,
           size: Vector2(tileSize * 1.5, tileSize * 1.7),
-          animation:
-              EnemySpriteSheet.boss1Animations(), // Sprite sheet cho DarkBoss
+          animation: EnemySpriteSheet.boss1Animations(),
           attack: 40,
         );
 
   @override
   void executeSkill() {
-    this.simpleAttackMelee(
+    simpleAttackMelee(
       size: Vector2.all(tileSize * 0.90),
       damage: attack,
       interval: 1500,
@@ -39,19 +38,15 @@ class Boss1 extends BossEntity {
   }
 
   void execAttackRange() {
-    this.simpleAttackRange(
+    simpleAttackRange(
       animation: GameSpriteSheet.fireBallAttackRight(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2.all(tileSize * 0.65),
       damage: attack,
       useAngle: true,
       speed: speed * 5.0,
-      execute: () {
-        Sounds.attackRange();
-      },
-      onDestroy: () {
-        Sounds.explosion();
-      },
+      execute: () => Sounds.attackRange(),
+      onDestroy: () => Sounds.explosion(),
       collision: RectangleHitbox(
         size: Vector2(tileSize / 3, tileSize / 3),
         position: Vector2(10, 5),
@@ -65,7 +60,8 @@ class Boss1 extends BossEntity {
   }
 
   @override
-  void _showConversation() {
+  void showConversation() {
+    print("Boss1: _showConversation() được gọi!");
     Sounds.interaction();
     TalkDialog.show(
       gameRef.context,
@@ -73,31 +69,25 @@ class Boss1 extends BossEntity {
         Say(
           text: [TextSpan(text: getString('talk_kid_1'))],
           person: CustomSpriteAnimationWidget(
-            animation: NpcSpriteSheet.kidIdleLeft(),
-          ),
+              animation: NpcSpriteSheet.kidIdleLeft()),
           personSayDirection: PersonSayDirection.RIGHT,
         ),
         Say(
           text: [TextSpan(text: getString('talk_boss1_1'))],
           person: CustomSpriteAnimationWidget(
-            animation:
-                EnemySpriteSheet.boss1IdleRight(), // Dùng sprite của DarkBoss
-          ),
+              animation: EnemySpriteSheet.boss1IdleRight()),
           personSayDirection: PersonSayDirection.LEFT,
         ),
         Say(
           text: [TextSpan(text: getString('talk_player_3'))],
           person: CustomSpriteAnimationWidget(
-            animation: PlayerSpriteSheet.idleRight(),
-          ),
+              animation: PlayerSpriteSheet.idleRight()),
           personSayDirection: PersonSayDirection.LEFT,
         ),
         Say(
           text: [TextSpan(text: getString('talk_boss1_2'))],
           person: CustomSpriteAnimationWidget(
-            animation:
-                EnemySpriteSheet.boss1IdleRight(), // Dùng sprite của DarkBoss
-          ),
+              animation: EnemySpriteSheet.boss1IdleRight()),
           personSayDirection: PersonSayDirection.RIGHT,
         ),
       ],
@@ -109,12 +99,8 @@ class Boss1 extends BossEntity {
           Sounds.playBackgroundBossSound();
         });
       },
-      onChangeTalk: (index) {
-        Sounds.interaction();
-      },
-      logicalKeyboardKeysToNext: [
-        LogicalKeyboardKey.space,
-      ],
+      onChangeTalk: (index) => Sounds.interaction(),
+      logicalKeyboardKeysToNext: [LogicalKeyboardKey.space],
     );
   }
 }
