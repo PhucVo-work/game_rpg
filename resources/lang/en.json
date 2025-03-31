@@ -1,9 +1,6 @@
 {
   "play_cap": "PLAY",
   "continue_play": "CONTINUE PLAYING",
-  "credits_cap": "CREDITS",
-  "powered_by": "Powered by ",
-  "built_with": "Built with ",
   "talk_wizard_1": "Greetings, young knight!\nWhat brings you here?",
   "talk_player_1": "Hello, sir!\nI was sent to rescue a child who was kidnapped by the creatures living in this area.",
   "talk_wizard_2": "Hmm...\nI don't want to discourage you, but you are the fifth knight sent on this mission. So far, none have returned alive, and their bodies hang on the walls as trophies.",
