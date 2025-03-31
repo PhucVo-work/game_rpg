@@ -22,6 +22,27 @@ import '../main.dart';
 class MapConfig {
   static final List<Map<String, dynamic>> maps = [
     {
+      'path': 'tiled/map4.json',
+      'bossBuilder': (Vector2 p) => Boss1(p),
+      'kidDialogues': ['talk_kid_3', 'talk_kid_4', 'talk_player_4'],
+      'wizardDialogues': [
+        'talk_wizard_1',
+        'talk_player_1',
+        'talk_wizard_2',
+        'talk_player_2',
+        'talk_wizard_3',
+      ],
+      'objects': [
+        'boss',
+        'kid',
+        'wizard',
+        'goblin',
+        'mask_orc',
+        'mini_orc',
+        'potion'
+      ],
+    },
+    {
       'path': 'tiled/map5.json',
       'bossBuilder': (Vector2 p) => Boss2(p),
       'kidDialogues': ['talk_kid_5', 'talk_kid_6', 'talk_player_8'],
@@ -43,27 +64,6 @@ class MapConfig {
         'mini_boss',
         'spikes',
         'door',
-      ],
-    },
-    {
-      'path': 'tiled/map4.json',
-      'bossBuilder': (Vector2 p) => Boss1(p),
-      'kidDialogues': ['talk_kid_3', 'talk_kid_4', 'talk_player_4'],
-      'wizardDialogues': [
-        'talk_wizard_1',
-        'talk_player_1',
-        'talk_wizard_2',
-        'talk_player_2',
-        'talk_wizard_3',
-      ],
-      'objects': [
-        'boss',
-        'kid',
-        'wizard',
-        'goblin',
-        'mask_orc',
-        'mini_orc',
-        'potion'
       ],
     },
     {
