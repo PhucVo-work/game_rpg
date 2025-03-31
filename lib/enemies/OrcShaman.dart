@@ -52,7 +52,7 @@ class OrcShaman extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
         positioned: (p) {
           execAttackRange();
         },
-        radiusVision: tileSize * 20, // 5 default
+        radiusVision: tileSize * 5, // 5 default
       );
     }
   }

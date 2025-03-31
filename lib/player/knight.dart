@@ -20,8 +20,8 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
           animation: PlayerSpriteSheet.playerAnimations(),
           size: Vector2.all(tileSize),
           position: position,
-          life: 8000, //150
-          speed: tileSize * 9.5, //3.5
+          life: 150, //150
+          speed: tileSize * 3.5, //3.5
         ) {
     setupLighting(
       LightingConfig(
@@ -53,17 +53,6 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
     if (event.id == 0 && event.event == ActionEvent.DOWN) {
       actionAttack();
     }
-    // Dành cho keyboard
-    //
-    // if (event.id == LogicalKeyboardKey.space &&
-    //     event.event == ActionEvent.DOWN) {
-    //   actionAttack();
-    // }
-    //
-    // if (event.id == LogicalKeyboardKey.keyZ &&
-    //     event.event == ActionEvent.DOWN) {
-    //   actionAttackRange();
-    // }
 
     if (event.id == 1 && event.event == ActionEvent.DOWN) {
       actionAttackRange();
