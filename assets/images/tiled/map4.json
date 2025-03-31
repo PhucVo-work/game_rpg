@@ -420,6 +420,72 @@
                  "width":17.3333333333333,
                  "x":336,
                  "y":206.333333333333
+                }, 
+                {
+                 "height":17,
+                 "id":25,
+                 "name":"mini_orc",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14.5,
+                 "x":273,
+                 "y":111.5
+                }, 
+                {
+                 "height":14,
+                 "id":26,
+                 "name":"mini_orc",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":17,
+                 "x":191.5,
+                 "y":113
+                }, 
+                {
+                 "height":15.5,
+                 "id":27,
+                 "name":"mini_orc",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":12.5,
+                 "x":466,
+                 "y":49
+                }, 
+                {
+                 "height":17,
+                 "id":28,
+                 "name":"mini_orc",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14,
+                 "x":401,
+                 "y":127
+                }, 
+                {
+                 "height":15,
+                 "id":29,
+                 "name":"mini_orc",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15,
+                 "x":48.5,
+                 "y":158.5
+                }, 
+                {
+                 "height":16,
+                 "id":30,
+                 "name":"potion",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":304,
+                 "y":180.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -428,7 +494,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":25,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
