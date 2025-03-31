@@ -60,7 +60,7 @@ abstract class BossEntity extends SimpleEnemy
             onComplete: () => showConversation(),
           );
         },
-        radiusVision: tileSize * 6,
+        radiusVision: tileSize * 8,
       );
     }
 

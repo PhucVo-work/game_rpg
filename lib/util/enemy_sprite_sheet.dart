@@ -95,7 +95,14 @@ class EnemySpriteSheet {
             textureSize: Vector2(32, 36),
           ),
         ),
-        idleRight: boss2IdleRight(),
+        idleRight: SpriteAnimation.load(
+          'enemy/boss2/boss_idle.png',
+          SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 36),
+          ),
+        ),
         runLeft: SpriteAnimation.load(
           'enemy/boss2/boss_run_left.png',
           SpriteAnimationData.sequenced(
@@ -105,7 +112,7 @@ class EnemySpriteSheet {
           ),
         ),
         runRight: SpriteAnimation.load(
-          'enemy/boss2/boss_run_right.png',
+          'enemy/boss2/boss_run.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -143,7 +150,7 @@ class EnemySpriteSheet {
           ),
         ),
         runRight: SpriteAnimation.load(
-          'enemy/boss3/boss_run_right.png',
+          'enemy/boss3/boss_run.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -257,7 +264,7 @@ class EnemySpriteSheet {
 
   static SimpleDirectionAnimation orcAnimations() => SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
-          'enemy/orc/orc_left.png',
+          'enemy/orc/orc_idle_left.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -296,7 +303,7 @@ class EnemySpriteSheet {
         SpriteAnimationData.sequenced(
           amount: 4,
           stepTime: 0.1,
-          textureSize: Vector2(16, 16),
+          textureSize: Vector2(16, 23),
         ),
       );
 
@@ -327,7 +334,7 @@ class EnemySpriteSheet {
           ),
         ),
         runRight: SpriteAnimation.load(
-          'enemy/orc_shaman/orc_shaman_run_right.png',
+          'enemy/orc_shaman/orc_shaman_run.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -349,7 +356,7 @@ class EnemySpriteSheet {
   static SimpleDirectionAnimation maskOrcAnimations() =>
       SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
-          'enemy/mask_orc/masked_orc_left.png',
+          'enemy/mask_orc/masked_orc_idle_left.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,
@@ -373,7 +380,7 @@ class EnemySpriteSheet {
           ),
         ),
         runRight: SpriteAnimation.load(
-          'enemy/mask_orc/masked_orc_run_right.png',
+          'enemy/mask_orc/masked_orc_run.png',
           SpriteAnimationData.sequenced(
             amount: 4,
             stepTime: 0.1,

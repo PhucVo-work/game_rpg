@@ -80,8 +80,7 @@ class Boss2 extends BossEntity {
         Say(
           text: [TextSpan(text: getString('talk_boss2_1'))],
           person: CustomSpriteAnimationWidget(
-            animation:
-                EnemySpriteSheet.boss2IdleRight(), // Dùng sprite của DarkBoss
+            animation: EnemySpriteSheet.boss2IdleRight(),
           ),
           personSayDirection: PersonSayDirection.LEFT,
         ),
@@ -95,8 +94,7 @@ class Boss2 extends BossEntity {
         Say(
           text: [TextSpan(text: getString('talk_boss2_2'))],
           person: CustomSpriteAnimationWidget(
-            animation:
-                EnemySpriteSheet.boss2IdleRight(), // Dùng sprite của DarkBoss
+            animation: EnemySpriteSheet.boss2IdleRight(),
           ),
           personSayDirection: PersonSayDirection.RIGHT,
         ),
