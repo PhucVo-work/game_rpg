@@ -20,7 +20,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
           animation: PlayerSpriteSheet.playerAnimations(),
           size: Vector2.all(tileSize),
           position: position,
-          life: 150, //150
+          life: 250, //150
           speed: tileSize * 3.5, //3.5
         ) {
     setupLighting(
