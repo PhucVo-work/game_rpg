@@ -2,11 +2,16 @@ import 'dart:async' as async;
 
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:game_rpg/game.dart';
 import 'package:game_rpg/main.dart';
 import 'package:game_rpg/util/functions.dart';
 import 'package:game_rpg/util/game_sprite_sheet.dart';
 import 'package:game_rpg/util/player_sprite_sheet.dart';
 import 'package:game_rpg/util/sounds.dart';
+import 'package:hive/hive.dart';
+
+import '../menu.dart';
+import '../util/dialogs.dart';
 
 class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
   double attack = 25; //25
@@ -14,13 +19,14 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
   async.Timer? _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
+  final BuildContext context;
 
-  Knight(Vector2 position)
+  Knight(Vector2 position, this.context)
       : super(
           animation: PlayerSpriteSheet.playerAnimations(),
           size: Vector2.all(tileSize),
           position: position,
-          life: 250, //150
+          life: 250, //250
           speed: tileSize * 3.5, //3.5
         ) {
     setupLighting(
@@ -62,7 +68,6 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
 
   @override
   void onDie() {
-    removeFromParent();
     gameRef.add(
       GameDecoration.withSprite(
         sprite: Sprite.load('player/crypt.png'),
@@ -73,6 +78,29 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
         size: Vector2.all(30),
       ),
     );
+    SizedBox(
+      height: 10,
+    );
+    Dialogs.showGameOver(context, () {
+      final box = Hive.box('gameData');
+      final savedIndex = box.get('currentMapIndex') as int;
+      gameRef.resumeEngine();
+      print('${Navigator.of(gameRef.context).toString()}play again when dead');
+      Navigator.of(gameRef.context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => Game(initialMapIndex: savedIndex)),
+        (Route<dynamic> route) => false,
+      );
+    }, () {
+      gameRef.resumeEngine();
+      print('${Navigator.of(gameRef.context).toString()}menu quit when dead');
+      Navigator.of(gameRef.context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Menu()),
+        (Route<dynamic> route) => false,
+      );
+    });
+    removeFromParent();
+    gameRef.pauseEngine();
     super.onDie();
   }
 

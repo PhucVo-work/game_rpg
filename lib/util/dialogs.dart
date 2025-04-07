@@ -3,36 +3,82 @@ import 'package:game_rpg/menu.dart';
 import 'package:game_rpg/util/localization/strings_location.dart';
 
 class Dialogs {
-  static void showGameOver(BuildContext context, VoidCallback playAgain) {
+  static void showGameOver(
+      BuildContext context, VoidCallback playAgain, VoidCallback outGame) {
+    print('show game over');
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
                 'assets/game_over.png',
                 height: 100,
               ),
               SizedBox(
-                height: 10.0,
+                height: 25.0,
               ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.transparent),
-                ),
-                onPressed: playAgain,
-                child: Text(
-                  getString('play_again_cap'),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Normal',
-                      fontSize: 20.0),
-                ),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 150,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            side: BorderSide(
+                              width: 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                          minimumSize: Size(100, 40),
+                        ),
+                        onPressed: playAgain,
+                        child: Text(
+                          getString('play_again'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Normal',
+                            fontSize: 20.0,
+                          ),
+                        )),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            side: BorderSide(
+                              width: 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                          minimumSize: Size(100, 40),
+                        ),
+                        onPressed: outGame,
+                        child: Text(
+                          getString('game_out'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Normal',
+                            fontSize: 20.0,
+                          ),
+                        )),
+                  ),
+                ],
+              ),
             ],
           ),
         );

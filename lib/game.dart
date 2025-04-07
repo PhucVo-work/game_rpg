@@ -80,7 +80,7 @@ class GameState extends State<Game> {
         key: ValueKey(
             currentMapIndex), // Thay đổi key để rebuild khi map thay đổi
         playerControllers: [joystick],
-        player: Knight(Vector2(2 * tileSize, 3 * tileSize)),
+        player: Knight(Vector2(2 * tileSize, 3 * tileSize), context),
         map: currentMap,
         interface: KnightInterface(),
         lightingColorGame: Colors.black.withOpacity(0.6),

@@ -8,7 +8,7 @@ import 'package:game_rpg/util/localization/strings_location.dart';
 import 'package:game_rpg/util/npc_sprite_sheet.dart';
 import 'package:game_rpg/util/player_sprite_sheet.dart';
 import 'package:game_rpg/util/sounds.dart';
-import 'package:hive_flutter/hive_flutter.dart'; // Import Hive
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'game.dart';
@@ -139,11 +139,13 @@ class _MenuState extends State<Menu> {
                       ),
                     ),
                     onPressed: () {
+                      var savedIndex = 0;
+                      box.put('currentMapIndex', savedIndex);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              Game(initialMapIndex: 0), // Bắt đầu từ map 0
+                          builder: (context) => Game(
+                              initialMapIndex: savedIndex), // Bắt đầu từ map 0
                         ),
                       );
                     },

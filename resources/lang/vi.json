@@ -37,7 +37,9 @@
   "talk_kid_11": "Quỷ vương đã bị tiêu diệt các quái vật khác sẽ sớm biến mất thoi\nCảm ơn ngài vì đã cứu vương quốc",
   "talk_player_10": "Không sao cả vì cha cậu đã trả cho ta một gia tài\nTa sẽ trở lại khi vương quốc cần :))))",
 
-  "play_again_cap": "CHƠI LẠI",
+  "game_out": "THOÁT",
+  "save": "LƯU",
+  "play_again": "CHƠI LẠI",
   "congratulations": "CHÚC MỪNG!",
   "thanks": "Cảm ơn bạn đã thử nghiệm trò chơi 2D RPG.\nCó lẽ chúng ta sẽ có phần tiếp theo của trò chơi!\nHy vọng bạn đã thích!",
   "door_without_key": "Tôi nghĩ tôi cần một chiếc chìa khóa để đi qua đây!"

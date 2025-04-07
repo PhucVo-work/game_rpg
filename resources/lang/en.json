@@ -37,7 +37,9 @@
   "talk_kid_11": "The Demon King has been defeated! The other monsters will soon disappear.\nThank you for saving the kingdom!",
   "talk_player_10": "No problem! Your father paid me a fortune.\nI'll be back when the kingdom needs me! :))))",
 
-  "play_again_cap": "PLAY AGAIN",
+  "game_out": "OUT GAME",
+  "save": "SAVE",
+  "play_again": "PLAY AGAIN",
   "congratulations": "CONGRATULATIONS!",
   "thanks": "Thank you for playing the 2D RPG game.\nMaybe there will be a sequel!\nHope you enjoyed it!",
   "door_without_key": "I think I need a key to get through here!"

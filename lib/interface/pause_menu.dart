@@ -1,8 +1,10 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:game_rpg/util/localization/strings_location.dart';
 import 'package:hive/hive.dart';
 
 import '../game.dart';
+import '../menu.dart';
 
 class PauseMenu extends StatelessWidget {
   final BonfireGame game;
@@ -53,8 +55,8 @@ class PauseMenu extends StatelessWidget {
                     // game.paused = false; // Tiếp tục game
                     // game.overlays.remove(overlayKey); // Ẩn menu
                   },
-                  child: const Text(
-                    'Save',
+                  child: Text(
+                    getString("save"),
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Normal',
@@ -80,11 +82,16 @@ class PauseMenu extends StatelessWidget {
                     minimumSize: const Size(100, 40),
                   ),
                   onPressed: () {
-                    //game.paused = false; // Reset trạng thái pause
-                    Navigator.of(context).pop(); // Quay lại màn hình chính
+                    game.resumeEngine();
+                    print(
+                        '${Navigator.of(game.context).toString()} pause menu quit');
+                    Navigator.of(game.context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => Menu()),
+                      (Route<dynamic> route) => false,
+                    );
                   },
-                  child: const Text(
-                    'Home',
+                  child: Text(
+                    getString("game_out"),
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Normal',
