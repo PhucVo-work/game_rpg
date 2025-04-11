@@ -4,7 +4,7 @@
 // import 'package:game_rpg/util/dialogs.dart';
 //
 // class GameController extends GameComponent {
-//   bool showGameOver = false;
+//   bool  showGameOver = false;
 //   @override
 //   void update(double dt) {
 //     if (checkInterval('gameOver', 100, dt)) {
