@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:game_rpg/enemies/bossEntity.dart';
 import 'package:game_rpg/main.dart';
 import 'package:game_rpg/util/custom_sprite_animation_widget.dart';
@@ -12,6 +11,9 @@ import 'package:game_rpg/util/localization/strings_location.dart';
 import 'package:game_rpg/util/npc_sprite_sheet.dart';
 import 'package:game_rpg/util/player_sprite_sheet.dart';
 import 'package:game_rpg/util/sounds.dart';
+
+import 'MaskOrc.dart';
+import 'mini_boss.dart';
 
 class Boss1 extends BossEntity {
   Boss1(Vector2 position)
@@ -37,6 +39,7 @@ class Boss1 extends BossEntity {
     );
   }
 
+  @override
   void execAttackRange() {
     simpleAttackRange(
       animation: GameSpriteSheet.fireBallAttackRight(),
@@ -100,7 +103,63 @@ class Boss1 extends BossEntity {
         });
       },
       onChangeTalk: (index) => Sounds.interaction(),
-      logicalKeyboardKeysToNext: [LogicalKeyboardKey.space],
     );
+  }
+
+  @override
+  void addChildInMap(double dt) {
+    if (checkInterval('addChild', 2000, dt)) {
+      Vector2 positionExplosion;
+      switch (directionThePlayerIsIn()) {
+        case Direction.left:
+          positionExplosion = position.translated(width * -2, 0);
+          break;
+        case Direction.right:
+          positionExplosion = position.translated(width * 2, 0);
+          break;
+        case Direction.up:
+          positionExplosion = position.translated(0, height * -2);
+          break;
+        case Direction.down:
+          positionExplosion = position.translated(0, height * 2);
+          break;
+        default:
+          positionExplosion = position.translated(width * 2, 0);
+      }
+
+      Enemy e = childrenEnemy.length == 2
+          ? MiniBoss(positionExplosion)
+          : MaskOrc(positionExplosion); // Thay Imp bằng MaskOrc
+
+      gameRef.add(
+        AnimatedGameObject(
+          animation: GameSpriteSheet.smokeExplosion(),
+          position: positionExplosion,
+          size: Vector2(32, 32),
+          loop: false,
+        ),
+      );
+      childrenEnemy.add(e);
+      gameRef.add(e);
+    }
+  }
+
+  @override
+  void addInitChild() {
+    addMaskOrc(width * -2, 0); // Thay addImp bằng addMaskOrc
+    addMaskOrc(width * -2, width);
+  }
+
+  void addMaskOrc(double x, double y) {
+    final p = position.translated(x, y);
+    gameRef.add(
+      AnimatedGameObject(
+        animation: GameSpriteSheet.smokeExplosion(),
+        position: p,
+        size: Vector2.all(tileSize),
+        loop: false,
+      ),
+    );
+    gameRef.add(MaskOrc(p));
   }
 }

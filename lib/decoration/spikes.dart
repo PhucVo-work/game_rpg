@@ -7,7 +7,7 @@ class Spikes extends GameDecoration with Sensor<Knight> {
   final double damage;
   Knight? player;
 
-  Spikes(Vector2 position, {this.damage = 60})
+  Spikes(Vector2 position, {this.damage = 20})
       : super.withAnimation(
           animation: GameSpriteSheet.spikes(),
           position: position,

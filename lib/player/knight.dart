@@ -14,7 +14,7 @@ import '../menu.dart';
 import '../util/dialogs.dart';
 
 class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
-  double attack = 25; //25
+  double attack = 50; //25
   double stamina = 100;
   async.Timer? _timerStamina;
   bool containKey = false;
@@ -130,7 +130,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
       animationRight: GameSpriteSheet.fireBallAttackRight(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2(tileSize * 0.65, tileSize * 0.65),
-      damage: 10,
+      damage: 100,
       speed: speed * 2.5,
       onDestroy: () {
         Sounds.explosion();

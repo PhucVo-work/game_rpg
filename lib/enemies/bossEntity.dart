@@ -53,7 +53,7 @@ abstract class BossEntity extends SimpleEnemy
       seePlayer(
         observed: (p) {
           firstSeePlayer = true;
-          print("BossEntity: Gọi _showConversation cho ${runtimeType}");
+          // print("BossEntity: Gọi _showConversation cho ${runtimeType}");
           gameRef.camera.moveToTargetAnimated(
             target: this,
             zoom: 2,
@@ -136,7 +136,7 @@ abstract class BossEntity extends SimpleEnemy
 
   @override
   void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
-    print("Boss1 nhận sát thương: $damage từ $attacker. Máu hiện tại: $life");
+    // print("Boss1 nhận sát thương: $damage từ $attacker. Máu hiện tại: $life");
     showDamage(
       damage,
       config: TextStyle(
